@@ -65,10 +65,10 @@
   --noir:#221A18;             /* ロゴの地色 */
   --noir-2:#2A211E;
   --blanc:#F5F4F1;
-  --gris:#9A918C;
-  --gris-2:#6E6460;
-  --soft:#C9C7C2;
-  --rule:#3B312D;
+  --gris:#BDB5AF;
+  --gris-2:#948A84;
+  --soft:#E4E0DB;
+  --rule:#4A3F3A;
   --ai:#4A6A99;              /* 藍：ショップ区画のみ */
   --fill-line:#B89B5E;       /* 記入箇所 */
   --fill-fg:#E3D3A6;
@@ -80,7 +80,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--noir)}
-body{background:var(--noir);color:var(--blanc);font-family:var(--f-body);font-weight:300;font-size:15px;line-height:2;letter-spacing:.06em}
+body{margin:0;background:var(--noir);color:var(--blanc);font-family:var(--f-body);font-weight:400;font-size:16px;line-height:2;letter-spacing:.04em}
 a{color:inherit}
 a:focus-visible{outline:1px solid var(--blanc);outline-offset:4px}
 ::selection{background:var(--blanc);color:var(--noir)}
@@ -91,7 +91,12 @@ p{margin:0}
 .fill{color:var(--fill-fg);border-bottom:1px dashed var(--fill-line);padding-bottom:1px}
 .draft-note{background:var(--noir-2);color:var(--fill-fg);font-size:12px;line-height:1.6;padding:10px 24px;text-align:center;border-bottom:1px solid var(--rule)}
 
-.label{font-family:var(--f-mark);font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--gris)}
+.label{font-family:var(--f-mark);font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:var(--gris)}
+
+
+/* 明るいセクション（読みやすさ優先） */
+section.light{--noir:#F7F4F0;--noir-2:#EEE9E4;--blanc:#1F1A18;--gris:#5E5650;--gris-2:#7A716B;--soft:#3A3330;--rule:#DCD4CC;background:var(--noir);color:var(--blanc)}
+section.light ::selection{background:#1F1A18;color:#F7F4F0}
 
 /* Header */
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--noir) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
@@ -100,7 +105,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:co
 .mark img{height:40px;width:auto;max-width:100%}
 nav{max-width:100%;overflow-x:auto}
 nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:4px 0;white-space:nowrap}
-nav a{font-family:var(--f-mark);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;color:var(--gris);transition:color .3s}
+nav a{font-family:var(--f-mark);font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;color:var(--gris);transition:color .3s}
 nav a:hover{color:var(--blanc)}
 
 /* Photo placeholder */
@@ -135,7 +140,7 @@ div.photo::after{content:attr(data-photo);position:absolute;left:0;right:0;botto
 section{padding-block:120px;border-top:1px solid var(--rule)}
 .sec-head{text-align:center;margin-bottom:72px}
 .sec-head h2{font-family:var(--f-head);font-size:clamp(20px,2.4vw,26px);letter-spacing:.3em;margin-top:18px;padding-left:.3em}
-.center-lead{max-width:36em;margin:0 auto;text-align:center;color:var(--gris);font-size:14px}
+.center-lead{max-width:36em;margin:0 auto;text-align:center;color:var(--soft);font-size:15px}
 
 /* News */
 .event{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule)}
@@ -153,7 +158,7 @@ section{padding-block:120px;border-top:1px solid var(--rule)}
 .news-list time{font-family:var(--f-serif);font-size:16px;color:var(--gris);font-variant-numeric:tabular-nums;letter-spacing:.1em}
 
 .event .photo.flyer{object-fit:contain;background:var(--noir-2);padding:24px}
-.sub-dd{display:block;font-size:12.5px;color:var(--gris);line-height:1.8;margin-top:4px}
+.sub-dd{display:block;font-size:14px;color:var(--gris);line-height:1.8;margin-top:4px}
 
 /* Concept */
 .concept{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
@@ -167,7 +172,7 @@ section{padding-block:120px;border-top:1px solid var(--rule)}
 .point{padding:40px 32px 0;min-width:0;text-align:center}
 .point+.point{border-left:1px solid var(--rule)}
 .point h3{font-weight:400;font-family:var(--f-head);font-size:16px;letter-spacing:.18em;margin:14px 0}
-.point p.txt{font-size:13.5px;color:var(--gris)}
+.point p.txt{font-size:14px;color:var(--gris)}
 
 /* Menu */
 .menus{display:grid;grid-template-columns:1fr 1fr;gap:96px;max-width:960px;margin:0 auto}
@@ -180,8 +185,8 @@ section{padding-block:120px;border-top:1px solid var(--rule)}
 .menu li{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:18px 0;border-bottom:1px solid var(--rule);font-size:14px}
 .menu li .name{min-width:0}
 .menu .price{font-family:var(--f-serif);font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.menu .desc{display:block;font-size:12.5px;color:var(--gris);line-height:1.7;margin-top:2px}
-.note{font-size:12.5px;color:var(--gris);margin-top:24px;text-align:center}
+.menu .desc{display:block;font-size:14px;color:var(--gris);line-height:1.7;margin-top:2px}
+.note{font-size:14px;color:var(--gris);margin-top:24px;text-align:center}
 
 /* Shop — 藍 */
 #shop{background:linear-gradient(to bottom,var(--noir) 0,var(--noir) 120px,#1A1A22 100%)}
@@ -200,12 +205,12 @@ section{padding-block:120px;border-top:1px solid var(--rule)}
 .goods{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:120px}
 .goods figure{margin:0;min-width:0;text-align:center}
 .goods figcaption{margin-top:20px;font-family:var(--f-head);font-size:14.5px;letter-spacing:.16em}
-.goods figcaption small{display:block;font-family:var(--f-body);color:var(--gris);font-size:12.5px;letter-spacing:.06em;margin-top:6px}
+.goods figcaption small{display:block;font-family:var(--f-body);color:var(--gris);font-size:13.5px;letter-spacing:.06em;margin-top:6px}
 
 .levels{display:grid;grid-template-columns:1fr 2fr;gap:56px;align-items:end;margin-top:120px;padding-top:56px;border-top:1px solid var(--rule)}
 .levels-head{min-width:0}
 .levels-head h3{font-family:var(--f-head);font-weight:400;font-size:18px;letter-spacing:.18em;margin:14px 0 12px}
-.levels-head .txt{font-size:13.5px;color:var(--gris)}
+.levels-head .txt{font-size:14px;color:var(--gris)}
 .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;min-width:0}
 .swatches figure{margin:0;min-width:0}
 .swatches img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border:1px solid var(--rule)}
@@ -256,7 +261,7 @@ section{padding-block:120px;border-top:1px solid var(--rule)}
 .owner .photo{aspect-ratio:3/4}
 .owner .body{min-width:0}
 .owner h3{font-family:var(--f-head);font-size:22px;letter-spacing:.24em;margin:18px 0 6px}
-.owner .role{font-size:12.5px;color:var(--gris);letter-spacing:.14em}
+.owner .role{font-size:14px;color:var(--gris);letter-spacing:.14em}
 .owner p.msg{margin-top:32px;color:var(--soft);font-size:14.5px}
 .text-link{display:inline-block;margin-top:32px;font-family:var(--f-mark);font-size:11px;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--gris);padding-bottom:4px}
 
@@ -280,7 +285,7 @@ section{padding-block:120px;border-top:1px solid var(--rule)}
 .sns a:hover{background:var(--noir-2)}
 .sns .k{display:block;font-family:var(--f-mark);font-size:15px;letter-spacing:.4em;text-transform:uppercase;padding-left:.4em}
 .sns .id{display:block;font-family:var(--f-serif);font-style:italic;font-size:16px;color:var(--gris);margin-top:8px}
-.sns .d{display:block;font-size:12.5px;color:var(--gris);margin-top:16px}
+.sns .d{display:block;font-size:14px;color:var(--gris);margin-top:16px}
 
 footer{border-top:1px solid var(--rule);padding-block:80px 56px;text-align:center}
 footer .mark img{height:auto;width:180px;margin:0 auto}
@@ -373,7 +378,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
   </div>
 
   <!-- ===== NEWS ===== -->
-  <section id="news">
+  <section id="news" class="light">
     <div class="wrap">
       <div class="sec-head"><p class="label">News</p><h2>お知らせ</h2></div>
       <!-- 2周年イベント告知：公開OKになったら、ここに event ブロックを戻す（git履歴に保存済み） -->
@@ -486,7 +491,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
   </section>
 
   <!-- ===== PHOTO SPACE ===== -->
-  <section id="photo">
+  <section id="photo" class="light">
     <div class="wrap">
       <div class="sec-head"><p class="label">Photo Space</p><h2>季節のフォトスペース</h2></div>
       <p class="center-lead">ご来店のほとんどの方に楽しんでいただいている、アルペジオのフォトスペース。季節ごとにテーマを変えています。ご利用は無料。愛犬との記念の一枚を、ぜひ。</p>
@@ -524,7 +529,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
   </section>
 
   <!-- ===== RULES ===== -->
-  <section id="rules">
+  <section id="rules" class="light">
     <div class="wrap">
       <div class="sec-head"><p class="label">Guide</p><h2>ご来店の方へ</h2></div>
       <p class="center-lead">みなさまに気持ちよくお過ごしいただくため、以下のご協力をお願いしております。</p>
@@ -556,7 +561,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
   </section>
 
   <!-- ===== MEDIA ===== -->
-  <section id="media">
+  <section id="media" class="light">
     <div class="wrap">
       <div class="sec-head"><p class="label">Media</p><h2>メディア掲載</h2></div>
       <ul class="media-list">
@@ -601,7 +606,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
   </section>
 
   <!-- ===== SNS ===== -->
-  <section>
+  <section class="light">
     <div class="wrap">
       <div class="sec-head"><p class="label">Follow</p><h2>最新情報</h2></div>
       <div class="sns">
