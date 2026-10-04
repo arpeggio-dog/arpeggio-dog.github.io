@@ -244,8 +244,13 @@ section{scroll-margin-top:90px;padding-block:120px;border-top:1px solid var(--ru
 .media-list span{color:var(--soft);min-width:0}
 
 /* Photo space */
-.season{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:64px}
+.season{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:64px}
 .season figure{margin:0;min-width:0}
+.season .ss{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--rule)}
+.season .ss .photo{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;border:0;opacity:0;transition:opacity 1.4s ease}
+.season .ss .photo.is-on{opacity:1}
+.season figcaption span{display:block;font-family:var(--f-body);letter-spacing:.14em;font-size:13px;color:var(--soft);margin-top:4px;text-transform:none}
+@media (prefers-reduced-motion:reduce){.season .ss .photo{transition:none}}
 .season figcaption{font-family:var(--f-mark);font-size:11px;letter-spacing:.4em;text-transform:uppercase;text-align:center;margin-top:18px;color:var(--gris)}
 
 .clinic-info{max-width:760px;margin:56px auto 0}
@@ -512,12 +517,12 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
   <section id="photo" class="light">
     <div class="wrap">
       <div class="sec-head"><p class="label">Photo Space</p><h2>季節のフォトスペース</h2></div>
-      <p class="center-lead">ご来店のほとんどの方に楽しんでいただいている、アルペジオのフォトスペース。季節ごとにテーマを変えています。ご利用は無料。愛犬との記念の一枚を、ぜひ。</p>
+      <p class="center-lead">ご来店のほとんどの方に楽しんでいただいている、アルペジオのフォトスペース。季節ごとにテーマを変えています。春のお花、秋のパンパスやハロウィン、冬のクリスマスやお正月など。ご利用は無料。愛犬との記念の一枚を、ぜひ。</p>
       <div class="season">
-        <figure><img decoding="async" loading="lazy" class="photo" src="images/ps-spring.jpg" alt="春のフォトスペース。花とピンクのソファ" style="object-position:48% 50%"><figcaption>Spring</figcaption></figure>
-        <figure><img decoding="async" loading="lazy" class="photo" src="images/ps-summer.jpg" alt="夏のフォトスペース。氷の旗とすだれの夏祭り"><figcaption>Summer</figcaption></figure>
-        <figure><img decoding="async" loading="lazy" class="photo" src="images/ps-autumn.jpg" alt="秋のフォトスペース。黒と金のハロウィン"><figcaption>Autumn</figcaption></figure>
-        <figure><img decoding="async" loading="lazy" class="photo" src="images/ps-winter.jpg" alt="冬のフォトスペース。光る白い木と雪"><figcaption>Winter</figcaption></figure>
+        <figure><div class="ss"><img decoding="async" loading="lazy" class="photo is-on" src="images/ps-spring-2.jpg" alt="春のフォトスペース。紫のギンガムの服を着たシーズーとトイプードル"><img decoding="async" loading="lazy" class="photo" src="images/ps-spring-3.jpg" alt="春のフォトスペース。カーネーションに囲まれた白いトイプードル" style="object-position:50% 40%"><img decoding="async" loading="lazy" class="photo" src="images/ps-spring.jpg" alt="春のフォトスペース。花とピンクのソファ" style="object-position:48% 50%"></div><figcaption>Spring<span>春</span></figcaption></figure>
+        <figure><div class="ss"><img decoding="async" loading="lazy" class="photo is-on" src="images/ps-summer.jpg" alt="夏のフォトスペース。氷の旗とすだれの夏祭り"></div><figcaption>Summer<span>夏</span></figcaption></figure>
+        <figure><div class="ss"><img decoding="async" loading="lazy" class="photo is-on" src="images/ps-autumn-2.jpg" alt="秋のフォトスペース。パンパスグラスとトイプードル"><img decoding="async" loading="lazy" class="photo" src="images/ps-autumn-3.jpg" alt="秋のフォトスペース。黒と金の椅子に座るトイプードル" style="object-position:70% 50%"><img decoding="async" loading="lazy" class="photo" src="images/ps-autumn-4.jpg" alt="秋のフォトスペース。パンパスグラスと黒いトイプードル" style="object-position:30% 50%"></div><figcaption>Autumn<span>秋</span></figcaption></figure>
+        <figure><div class="ss"><img decoding="async" loading="lazy" class="photo is-on" src="images/ps-winter-3.jpg" alt="冬のフォトスペース。クリスマスツリーとシーズー" style="object-position:70% 50%"><img decoding="async" loading="lazy" class="photo" src="images/ps-winter-2.jpg" alt="冬のフォトスペース。光る白い木とシーズー"><img decoding="async" loading="lazy" class="photo" src="images/ps-winter-4.jpg" alt="冬のフォトスペース。クリスマスツリーとポメラニアンとシーズー" style="object-position:70% 60%"><img decoding="async" loading="lazy" class="photo" src="images/ps-newyear-1.jpg" alt="お正月のフォトスペース。和の花と黒いドレスのトイプードル"><img decoding="async" loading="lazy" class="photo" src="images/ps-newyear-2.jpg" alt="お正月のフォトスペース。和の花とシーズー"></div><figcaption>Winter<span>冬・お正月</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -669,6 +674,17 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
   function set(o){b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'メニューを閉じる':'メニューを開く');n.classList.toggle('open',o);}
   b.addEventListener('click',function(){set(b.getAttribute('aria-expanded')!=='true');});
   n.addEventListener('click',function(e){if(e.target.tagName==='A')set(false);});
+})();
+</script>
+<script>
+(function(){
+  document.querySelectorAll('.season .ss').forEach(function(box,k){
+    var imgs=box.querySelectorAll('.photo'); if(imgs.length<2) return; var i=0;
+    imgs.forEach(function(im){im.loading='eager';});
+    setTimeout(function(){ setInterval(function(){
+      imgs[i].classList.remove('is-on'); i=(i+1)%imgs.length; imgs[i].classList.add('is-on');
+    },4200); }, k*900);
+  });
 })();
 </script>
 </body>
