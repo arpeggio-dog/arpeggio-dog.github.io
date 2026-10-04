@@ -105,7 +105,12 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:co
 .mark img{height:40px;width:auto;max-width:100%}
 nav{max-width:100%;overflow-x:auto}
 nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:4px 0;white-space:nowrap}
-nav a{font-family:var(--f-mark);font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;color:var(--gris);transition:color .3s}
+nav a{font-family:var(--f-body);font-size:13px;letter-spacing:.12em;text-decoration:none;color:var(--soft);transition:color .3s}
+.menu-btn{display:none;background:none;border:0;padding:10px;cursor:pointer;flex-direction:column;gap:6px}
+.menu-btn span{display:block;width:24px;height:1.5px;background:var(--blanc);transition:transform .3s,opacity .3s}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 nav a:hover{color:var(--blanc)}
 
 /* Photo placeholder */
@@ -134,10 +139,11 @@ div.photo::after{content:attr(data-photo);position:absolute;left:0;right:0;botto
 
 .btn{display:inline-block;font-family:var(--f-mark);font-size:11px;letter-spacing:.34em;text-transform:uppercase;text-decoration:none;padding:16px 38px;border:1px solid var(--blanc);color:var(--blanc);transition:background .3s,color .3s}
 .btn:hover{background:var(--blanc);color:var(--noir)}
-.btns{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:44px}
+.btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:44px}
+.btns .btn{text-transform:none;font-family:var(--f-body);font-size:13px;letter-spacing:.14em;padding:15px 28px}
 
 /* Sections */
-section{padding-block:120px;border-top:1px solid var(--rule)}
+section{scroll-margin-top:90px;padding-block:120px;border-top:1px solid var(--rule)}
 .sec-head{text-align:center;margin-bottom:72px}
 .sec-head h2{font-family:var(--f-head);font-size:clamp(20px,2.4vw,26px);letter-spacing:.3em;margin-top:18px;padding-left:.3em}
 .center-lead{max-width:36em;margin:0 auto;text-align:center;color:var(--soft);font-size:15px}
@@ -290,10 +296,22 @@ section{padding-block:120px;border-top:1px solid var(--rule)}
 footer{border-top:1px solid var(--rule);padding-block:80px 56px;text-align:center}
 footer .mark img{height:auto;width:180px;margin:0 auto}
 footer .place{display:block;margin-top:28px}
+.nap{font-style:normal;font-size:13.5px;line-height:2;color:var(--soft);margin-top:28px}
+a.tel{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--gris-2)}
+.sub-note{display:block;font-size:13px;color:var(--gris);line-height:1.8;margin-top:4px}
+.sub-note a{color:inherit}
+.map-btns{display:flex;flex-wrap:wrap;gap:10px}
+.map-btns .btn{text-transform:none;padding:12px 18px;letter-spacing:.12em;font-family:var(--f-body);font-size:12.5px}
 footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:10px;letter-spacing:.3em;color:var(--gris-2)}
 
 /* Responsive */
 @media (max-width:880px){
+  .head{flex-direction:row;justify-content:space-between;align-items:center;padding-block:14px}
+  .menu-btn{display:flex}
+  nav{position:absolute;left:0;right:0;top:100%;background:var(--noir);border-bottom:1px solid var(--rule);display:none;overflow:visible}
+  nav.open{display:block}
+  nav ul{flex-direction:column;gap:0;padding:8px 24px 20px;white-space:normal}
+  nav li a{display:block;padding:14px 0;border-bottom:1px solid var(--rule);font-size:15px}
   section{padding-block:88px}
   .sec-head{margin-bottom:48px}
   .concept,.shop,.owner,.access,.menus{grid-template-columns:1fr;gap:56px}
@@ -337,16 +355,17 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
 <header>
   <div class="wrap head">
     <a class="mark" href="#top"><img src="images/logo-word.png" alt="ARPEGGIO for doglovers"></a>
-    <nav aria-label="ページ内メニュー">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="gnav" aria-label="メニューを開く"><span></span><span></span><span></span></button>
+    <nav id="gnav" aria-label="ページ内メニュー">
       <ul>
-        <li><a href="#news">News</a></li>
-        <li><a href="#concept">Concept</a></li>
-        <li><a href="#shop">Aizome</a></li>
-        <li><a href="#photo">Photo</a></li>
-        <li><a href="#clinic">Clinic</a></li>
-        <li><a href="#rules">Guide</a></li>
-        <li><a href="#media">Media</a></li>
-        <li><a href="#access">Access</a></li>
+        <li><a href="#news">お知らせ</a></li>
+        <li><a href="#concept">コンセプト</a></li>
+        <li><a href="#shop">藍染ウェア</a></li>
+        <li><a href="#photo">フォトスペース</a></li>
+        <li><a href="#clinic">動物病院</a></li>
+        <li><a href="#rules">ご来店の方へ</a></li>
+        <li><a href="#media">メディア</a></li>
+        <li><a href="#access">アクセス</a></li>
       </ul>
     </nav>
   </div>
@@ -371,8 +390,9 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
       <p class="catch">犬と暮らす人も、そうでない人も。<br>同じ時間を、心地よく。</p>
       <p class="lead">徳島県上板町のドッグカフェ＆ショップ。愛犬とくつろげるカフェと、徳島の藍で染めたオリジナルのドッグウェアをご用意しています。</p>
       <div class="btns">
-        <a class="btn" href="#access">Access</a>
-        <a class="btn" href="https://www.instagram.com/arpeggio_dog" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn" href="#access">アクセス・営業時間</a>
+        <a class="btn" href="tel:0886613377">電話する</a>
+        <a class="btn" href="https://www.instagram.com/arpeggio_dog" target="_blank" rel="noopener">Instagramを見る</a>
       </div>
     </div>
   </div>
@@ -406,7 +426,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
       </div>
       <p class="quote">Every note, in harmony.<small>人・犬・地域が、ともに幸せになれる場所</small></p>
       <div class="points">
-        <div class="point"><p class="label">I</p><h3>店内すべて同伴OK</h3><p class="txt">テーブル席とソファ席をご用意。車いすでも過ごしやすいバリアフリーの店内です。</p></div>
+        <div class="point"><p class="label">I</p><h3>店内すべて同伴OK</h3><p class="txt">テーブル席とソファ席をご用意。車いすでも過ごしやすいバリアフリーの店内です。コーヒー、すだちソーダ、ソフトクリームなどをお楽しみいただけます。</p></div>
         <div class="point"><p class="label">II</p><h3>酸素ボックス</h3><p class="txt">愛犬と一緒に入れる酸素ボックス。お散歩後のリラックスやシニア期のケアに。</p></div>
         <div class="point"><p class="label">III</p><h3>季節のフォトスペース</h3><p class="txt">季節ごとにテーマが変わるフォトブース。どなたでも無料でご利用いただけます。</p></div>
         <div class="point"><p class="label">IV</p><h3>阿波藍のドッグウェア</h3><p class="txt">上板町の藍染工房と仕立てる、世界に一着のオリジナルウェア。</p></div>
@@ -513,7 +533,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
         <dt>Days</dt><dd>毎週日曜日</dd>
         <dt>Hours</dt><dd>10:00〜17:00</dd>
         <dt>Service</dt><dd>健康診断・ワクチン接種など<br><span style="color:var(--gris);font-size:13px">※簡単な診療のみの対応となります。</span></dd>
-        <dt>Reserve</dt><dd>お電話（088-661-3377）またはInstagramのDMにてご予約ください。</dd>
+        <dt>Reserve</dt><dd>お電話（<a class="tel" href="tel:0886613377">088-661-3377</a>）またはInstagramのDMにてご予約ください。</dd>
       </dl>
 
       <div class="oxygen">
@@ -583,9 +603,9 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
         <dl class="info">
           <dt>Name</dt><dd>ARPEGGIO（アルペジオ）</dd>
           <dt>Address</dt><dd>〒771-1343<br>徳島県板野郡上板町椎本字椎ノ宮231-1</dd>
-          <dt>Tel</dt><dd>088-661-3377</dd>
+          <dt>Tel</dt><dd><a class="tel" href="tel:0886613377">088-661-3377</a></dd>
           <dt>Open</dt><dd>11:00〜17:00</dd>
-          <dt>Closed</dt><dd>火曜日・水曜日・木曜日</dd>
+          <dt>Closed</dt><dd>火曜日・水曜日・木曜日<br><span class="sub-note">臨時休業・営業日の変更は<a href="https://www.instagram.com/arpeggio_dog" target="_blank" rel="noopener">Instagram</a>の営業カレンダーでお知らせしています。</span></dd>
           <dt>Parking</dt><dd>約10台</dd>
           <dt>Facility</dt><dd>動物病院併設・バリアフリー（車いす対応）・酸素ボックス・フォトスペース</dd>
           <dt>Payment</dt><dd>現金・クレジットカード・QRコード決済</dd>
@@ -597,7 +617,10 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
           <p class="credit">© OpenStreetMap contributors</p>
           <div class="map-foot">
             <p class="txt">県道34号（石井引田線）沿い、イオンタウン上板のすぐ北です。</p>
-            <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ARPEGGIO&amp;query_place_id=ChIJ27KAvd91UzURHsz4MvtqERg" target="_blank" rel="noopener">Google Maps</a>
+            <div class="map-btns">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ARPEGGIO&amp;query_place_id=ChIJ27KAvd91UzURHsz4MvtqERg" target="_blank" rel="noopener">Googleマップで開く</a>
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ARPEGGIO&amp;query_place_id=ChIJ27KAvd91UzURHsz4MvtqERg" target="_blank" rel="noopener">Googleの口コミを見る</a>
+            </div>
           </div>
         </div>
       </div>
@@ -621,6 +644,11 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
   <div class="wrap">
     <a class="mark" href="#top"><img decoding="async" loading="lazy" src="images/logo-full.png" alt="ARPEGGIO for doglovers"></a>
     <span class="label place">Dog Café &amp; Shop — Kamiita, Tokushima — Since 2024</span>
+    <address class="nap">
+      〒771-1343 徳島県板野郡上板町椎本字椎ノ宮231-1<br>
+      TEL <a class="tel" href="tel:0886613377">088-661-3377</a>　営業 11:00〜17:00（火・水・木 定休）<br>
+      動物病院 毎週日曜 10:00〜17:00
+    </address>
     <small>© 2026 ARPEGGIO</small>
   </div>
 </footer>
@@ -634,6 +662,14 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
     i=(i+1)%imgs.length;
     imgs[i].classList.add('is-on'); dots[i].classList.add('on');
   },5000);
+})();
+</script>
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'),n=document.getElementById('gnav');if(!b||!n)return;
+  function set(o){b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'メニューを閉じる':'メニューを開く');n.classList.toggle('open',o);}
+  b.addEventListener('click',function(){set(b.getAttribute('aria-expanded')!=='true');});
+  n.addEventListener('click',function(e){if(e.target.tagName==='A')set(false);});
 })();
 </script>
 </body>
