@@ -62,13 +62,13 @@
 <style>
 /* Layout: ロゴと同じ暖かみのある黒のメゾン。中央に組んだワードマーク、極細の罫線、大きな余白。色は白と灰のみ、藍はショップの一箇所だけ */
 :root{
-  --noir:#FFFFFF;             /* 地色：白 */
-  --noir-2:#F4F1ED;
-  --blanc:#1F1A18;             /* 文字：ロゴの黒 */
-  --gris:#6E6560;
-  --gris-2:#9A918B;
-  --soft:#3D3633;
-  --rule:#E6E0DA;
+  --noir:#221A18;             /* ロゴの地色 */
+  --noir-2:#2A211E;
+  --blanc:#F5F4F1;
+  --gris:#BDB5AF;
+  --gris-2:#948A84;
+  --soft:#E4E0DB;
+  --rule:#4A3F3A;
   --ai:#4A6A99;              /* 藍：ショップ区画のみ */
   --fill-line:#B89B5E;       /* 記入箇所 */
   --fill-fg:#E3D3A6;
@@ -76,7 +76,7 @@
   --f-serif:"Cormorant Garamond","Garamond","Times New Roman",serif;
   --f-head:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
-  color-scheme:light;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--noir)}
@@ -95,7 +95,7 @@ p{margin:0}
 
 
 /* 明るいセクション（読みやすさ優先） */
-section.light{--noir:#F7F4F0;--noir-2:#EFEAE4;--rule:#E2DBD3;background:var(--noir)}
+section.light{--noir:#F7F4F0;--noir-2:#EEE9E4;--blanc:#1F1A18;--gris:#5E5650;--gris-2:#7A716B;--soft:#3A3330;--rule:#DCD4CC;background:var(--noir);color:var(--blanc)}
 section.light ::selection{background:#1F1A18;color:#F7F4F0}
 
 /* Header */
@@ -115,7 +115,7 @@ nav a:hover{color:var(--blanc)}
 
 /* Photo placeholder */
 .photo{display:block;width:100%;max-width:100%;aspect-ratio:4/5;object-fit:cover;position:relative;
-  background:var(--noir-2);border:1px solid var(--rule)}
+  background:radial-gradient(120% 90% at 30% 20%,#33282450 0%,#2A211E 55%,#1D1614 100%);border:1px solid var(--rule)}
 div.photo::after{content:attr(data-photo);position:absolute;left:0;right:0;bottom:18px;text-align:center;font-family:var(--f-mark);font-size:10px;letter-spacing:.34em;color:var(--gris-2);text-transform:uppercase}
 .photo.sq{aspect-ratio:1/1}
 
@@ -195,7 +195,7 @@ section{scroll-margin-top:90px;padding-block:120px;border-top:1px solid var(--ru
 .note{font-size:14px;color:var(--gris);margin-top:24px;text-align:center}
 
 /* Shop — 藍 */
-#shop{background:linear-gradient(to bottom,var(--noir) 0,var(--noir) 120px,#EEF1F5 100%)}
+#shop{background:linear-gradient(to bottom,var(--noir) 0,var(--noir) 120px,#1A1A22 100%)}
 .shop{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
 .shop .body{min-width:0;max-width:30em}
 .shop .ai-mark{font-family:var(--f-head);font-size:64px;color:var(--ai);line-height:1;margin-top:28px}
@@ -298,7 +298,7 @@ section{scroll-margin-top:90px;padding-block:120px;border-top:1px solid var(--ru
 .sns .id{display:block;font-family:var(--f-serif);font-style:italic;font-size:16px;color:var(--gris);margin-top:8px}
 .sns .d{display:block;font-size:14px;color:var(--gris);margin-top:16px}
 
-footer{--noir:#221A18;--blanc:#F5F4F1;--gris:#BDB5AF;--gris-2:#948A84;--soft:#E4E0DB;--rule:#4A3F3A;background:var(--noir);color:var(--blanc);border-top:0;padding-block:80px 56px;text-align:center}
+footer{border-top:1px solid var(--rule);padding-block:80px 56px;text-align:center}
 footer .mark img{height:auto;width:180px;margin:0 auto}
 footer .place{display:block;margin-top:28px}
 .nap{font-style:normal;font-size:13.5px;line-height:2;color:var(--soft);margin-top:28px}
@@ -359,7 +359,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
 <body>
 <header>
   <div class="wrap head">
-    <a class="mark" href="#top"><img src="images/logo-word-dark.png" alt="ARPEGGIO for doglovers"></a>
+    <a class="mark" href="#top"><img src="images/logo-word.png" alt="ARPEGGIO for doglovers"></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="gnav" aria-label="メニューを開く"><span></span><span></span><span></span></button>
     <nav id="gnav" aria-label="ページ内メニュー">
       <ul>
@@ -388,7 +388,7 @@ footer small{display:block;margin-top:48px;font-family:var(--f-mark);font-size:1
         <img decoding="async" class="photo" src="images/indigo-wear.jpg" alt="WATANABE'Sの藍染ドッグウェア" style="object-position:50% 55%" loading="lazy">
         <div class="dots" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></div>
       </div>
-      <h1 class="hero-h1"><img class="hero-logo" src="images/logo-full-dark.png" alt="ARPEGGIO（アルペジオ）｜徳島県上板町のドッグカフェ＆ショップ" width="900" height="669" fetchpriority="high"></h1>
+      <h1 class="hero-h1"><img class="hero-logo" src="images/logo-full.png" alt="ARPEGGIO（アルペジオ）｜徳島県上板町のドッグカフェ＆ショップ" width="900" height="669" fetchpriority="high"></h1>
       <p class="label sub">Dog Café &amp; Shop — Kamiita, Tokushima</p>
       <p class="since">Since 2024</p>
       <p class="catch">犬と暮らす人も、そうでない人も。<br>同じ時間を、心地よく。</p>
