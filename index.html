@@ -78,6 +78,24 @@
   gtag('js', new Date());
   gtag('config', 'AW-18493338362');
 </script>
+<script>
+  /* コンバージョン計測：Google広告で作ったラベルを入れると計測が始まる（空欄のものは何もしない） */
+  var ARPEGGIO_CONVERSIONS = {
+    tel: '',        /* 電話ボタンのタップ */
+    map: '',        /* Googleマップ（道順）を開く */
+    instagram: ''   /* Instagram（DM予約）を開く */
+  };
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var h = a.getAttribute('href'), type = null;
+    if (h.indexOf('tel:') === 0) type = 'tel';
+    else if (h.indexOf('google.com/maps') !== -1) type = 'map';
+    else if (h.indexOf('instagram.com/arpeggio_dog') !== -1) type = 'instagram';
+    if (!type || !ARPEGGIO_CONVERSIONS[type] || typeof gtag !== 'function') return;
+    gtag('event', 'conversion', { send_to: 'AW-18493338362/' + ARPEGGIO_CONVERSIONS[type] });
+  }, true);
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">本文へ移動</a>
