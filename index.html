@@ -95,6 +95,17 @@
     if (!type || !ARPEGGIO_CONVERSIONS[type] || typeof gtag !== 'function') return;
     gtag('event', 'conversion', { send_to: 'AW-18493338362/' + ARPEGGIO_CONVERSIONS[type], value: 1.0, currency: 'JPY' });
   }, true);
+  /* 店長紹介（#owner）が画面に入ったら1回だけ計測 */
+  document.addEventListener('DOMContentLoaded', function () {
+    var owner = document.getElementById('owner');
+    if (!owner || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (en) { return en.isIntersecting; })) return;
+      io.disconnect();
+      if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: 'AW-18493338362/l5h_CP_t35cdEPrlp_JE', value: 1.0, currency: 'JPY' });
+    }, { rootMargin: '0px 0px -40% 0px' });
+    io.observe(owner);
+  });
 </script>
 </head>
 <body>
