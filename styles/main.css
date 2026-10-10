@@ -488,3 +488,22 @@ footer small { display: block; font: 400 11px/1.7 var(--f-mark); letter-spacing:
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* 個別ページ（/indigo/ など。tools/build_pages.py で生成） */
+.page-intro { padding-block: 56px 44px; background: var(--paper); }
+.breadcrumb ol { display: flex; flex-wrap: wrap; gap: 0 .6em; margin: 0 0 28px; padding: 0; list-style: none; font-size: 12px; letter-spacing: .08em; color: var(--gris); }
+.breadcrumb li + li::before { content: "/"; margin-right: .6em; color: var(--line); }
+.breadcrumb a { text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.page-intro h1 { margin-top: 12px; font: 400 clamp(28px, 3.2vw, 44px)/1.5 var(--f-head); letter-spacing: .08em; }
+.page-intro .lead { margin-top: 14px; max-width: 40em; color: var(--soft); font-size: 15px; line-height: 2; }
+.page-intro + section { padding-top: 64px; }
+.page-back { padding-block: 0 72px; background: var(--paper); }
+.subpage #access + .page-back { padding-top: 0; }
+nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
+@media (max-width: 700px) {
+  .page-intro { padding-block: 36px 28px; }
+  .breadcrumb ol { margin-bottom: 20px; }
+  .page-intro + section { padding-top: 44px; }
+  .page-back { padding-bottom: 96px; }
+}
