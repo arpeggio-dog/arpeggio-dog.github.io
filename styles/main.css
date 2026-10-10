@@ -507,3 +507,21 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
   .page-intro + section { padding-top: 44px; }
   .page-back { padding-bottom: 96px; }
 }
+
+/* お問い合わせフォーム */
+.contact-form { margin-top: 28px; display: grid; gap: 18px; }
+.cf-row { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.cf-row > label, .cf-row > legend { font-size: 13px; font-weight: 500; color: var(--muted); padding: 0; }
+.cf-row em { font-style: normal; font-size: 11px; color: #ffffff; background: #1b1b1b; padding: 1px 6px; margin-left: 8px; letter-spacing: .04em; vertical-align: 1px; }
+.contact-form input[type=text], .contact-form input[type=email], .contact-form input[type=tel], .contact-form textarea { width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; color: var(--ink); background: #ffffff; border: 1px solid var(--line); border-radius: 0; padding: 12px 14px; line-height: 1.6; }
+.contact-form textarea { resize: vertical; min-height: 140px; }
+.contact-form input:focus, .contact-form textarea:focus { outline: 2px solid #1b1b1b; outline-offset: 0; border-color: #1b1b1b; }
+.cf-choices { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 15px; }
+.cf-choices label { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.cf-choices input { accent-color: #1b1b1b; width: 18px; height: 18px; margin: 0; }
+.cf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.cf-msg { margin: 0; font-size: 14px; line-height: 1.8; min-height: 0; }
+.cf-msg.is-error { color: #b42318; }
+.cf-msg.is-done { color: var(--ink); padding: 14px 16px; background: var(--paper-deep); border-left: 3px solid #1b1b1b; }
+.cf-submit { justify-self: start; min-width: 220px; cursor: pointer; font-family: inherit; }
+.cf-submit:disabled { opacity: .5; cursor: wait; }
