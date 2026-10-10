@@ -365,11 +365,11 @@
         <div>
           <dl class="info">
             <dt>ご相談窓口</dt><dd>ARPEGGIO 店長 本城来希（らいき）</dd>
-            <dt>メール</dt><dd><a href="mailto:shigoto-base@md.pikara.ne.jp?subject=ARPEGGIO%E5%8F%96%E6%9D%90%E3%83%BB%E5%87%BA%E6%BC%94%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87">shigoto-base@md.pikara.ne.jp</a></dd>
+            <dt>メール</dt><dd>下の「メールで相談する」ボタンからお送りください</dd>
             <dt>店舗電話</dt><dd><a class="tel" href="tel:0886613377">088-661-3377</a></dd>
           </dl>
           <p class="note">媒体・番組名、ご担当者名、企画内容、希望日時、返信先を添えてご連絡ください。撮影日時や撮影内容、工房・お客様などのご協力については、ご相談のうえ調整いたします。</p>
-          <div class="map-btns"><a class="btn btn-solid" href="mailto:shigoto-base@md.pikara.ne.jp?subject=ARPEGGIO%E5%8F%96%E6%9D%90%E3%83%BB%E5%87%BA%E6%BC%94%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87">メールで相談する <span aria-hidden="true">↗</span></a></div>
+          <div class="map-btns"><a class="btn btn-solid js-mail" href="#press" data-u="esab-otogihs" data-d="pj.en.arakip.dm" data-s="ARPEGGIO%E5%8F%96%E6%9D%90%E3%83%BB%E5%87%BA%E6%BC%94%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87" rel="nofollow">メールで相談する <span aria-hidden="true">↗</span></a></div>
         </div>
       </div>
     </div>
@@ -432,5 +432,15 @@
 </footer>
 <div class="mobile-actions" aria-label="ご来店・お問い合わせ"><a href="#access">アクセス・営業時間 <span aria-hidden="true">↗</span></a><a href="tel:0886613377">電話する <span aria-hidden="true">↗</span></a></div>
 <script src="scripts/main.js" defer></script>
+<script>
+  /* メールアドレスをページ上に出さず、押したときだけメールアプリを開く */
+  document.querySelectorAll('.js-mail').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var r = function (t) { return t.split('').reverse().join(''); };
+      location.href = 'mai' + 'lto:' + r(a.dataset.u) + '@' + r(a.dataset.d) + '?subject=' + a.dataset.s;
+    });
+  });
+</script>
 </body>
 </html>
