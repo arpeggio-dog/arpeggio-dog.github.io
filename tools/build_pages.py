@@ -22,6 +22,14 @@ PAGES = [
         "image": "indigo-wear.jpg",
     },
     {
+        "slug": "betty-smith", "anchor": "betty", "sections": ["betty", "access"],
+        "nav": "Betty Smith", "h1": "Betty Smith",
+        "title": "Betty Smith（ベティスミス）愛犬とお揃いのデニムウェア｜ARPEGGIO（アルペジオ）徳島・上板町",
+        "desc": "岡山・児島のデニムブランド Betty Smith（ベティスミス）。愛犬と飼い主さまがお揃いで着られるウェアや、愛犬用のデニムサロペット・スカート、ロゴTシャツを、徳島県上板町のドッグカフェ ARPEGGIOの店頭でご覧いただけます。",
+        "lead": "岡山・児島のデニムブランド「ベティスミス」。愛犬とお揃いで着られるウェアを店頭でご紹介しています。",
+        "image": "betty-denim-shop.jpg",
+    },
+    {
         "slug": "clinic", "anchor": "clinic", "sections": ["clinic", "access"],
         "nav": "動物病院", "h1": "併設の動物病院",
         "title": "動物病院（毎週日曜診療）｜ARPEGGIO（アルペジオ）徳島・上板町",

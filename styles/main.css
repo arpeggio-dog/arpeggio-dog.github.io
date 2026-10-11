@@ -150,6 +150,11 @@ section { padding-block: 100px; scroll-margin-top: calc(var(--header-height) + 1
 .ai-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .ai-gallery img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
 .goods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; padding-top: 64px; border-top: 1px solid var(--rule); }
+.betty-section { background: #f3f3f3; }
+.betty-section .collection-name { color: #8a96a3; }
+.betty-section .collection-image figcaption span { color: var(--muted); }
+.betty-goods { grid-template-columns: repeat(2, 1fr); }
+.betty-section .feat li { grid-template-columns: 7em 1fr; }
 .goods .photo { aspect-ratio: 4/3; object-fit: contain; background: #fff; }
 .goods figcaption { font: 400 21px/1.6 var(--f-head); margin-top: 18px; }
 .goods figcaption small { display: block; font: 400 14px/1.9 var(--f-body); color: var(--gris); margin-top: 7px; }
