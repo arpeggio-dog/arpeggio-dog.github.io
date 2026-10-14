@@ -19,7 +19,7 @@ PAGES = [
         "title": "阿波藍のドッグウェア ARPEGGIO indigo｜ARPEGGIO（アルペジオ）徳島・上板町",
         "desc": "徳島の伝統工芸「阿波藍」で職人が一枚ずつ手染めする、世界に一着のドッグウェア。ドッグシャツ¥8,800〜、ドッグパーカー¥12,000〜。上板町のドッグカフェ ARPEGGIOで店頭オーダー受付中。",
         "lead": "上板町の藍染工房「WATANABE'S」と仕立てる、世界に一着のオリジナルウェア。",
-        "image": "indigo-wear.jpg",
+        "image": "indigo-shirts-2026.jpg",
     },
     {
         "slug": "betty-smith", "anchor": "betty", "sections": ["betty", "access"],
@@ -51,7 +51,7 @@ PAGES = [
         "title": "カフェメニュー・店内のご案内｜ARPEGGIO（アルペジオ）徳島・上板町のドッグカフェ",
         "desc": "コーヒー、すだちソーダ、ソフトクリーム。店内すべて愛犬と同伴OKのバリアフリーなドッグカフェです。酸素ボックスや季節のフォトスペースも。徳島県上板町。",
         "lead": "店内すべて愛犬と同伴OK。犬を飼っていない方も、どうぞ気軽にお立ち寄りください。",
-        "image": "cafe-cups.jpg",
+        "image": "interior-counter-2026.jpg",
     },
     {
         "slug": "rules", "anchor": "rules", "sections": ["rules", "access"],
