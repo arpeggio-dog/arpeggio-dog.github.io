@@ -59,7 +59,7 @@ PAGES = [
         "title": "愛犬とのご来店ルール｜ARPEGGIO（アルペジオ）徳島・上板町のドッグカフェ",
         "desc": "ARPEGGIOへ愛犬とご来店いただく際のお願い。ワクチン接種証明のご提示、おむつ（マナーパンツ・マナーベルト）の着用、小型の室内犬に限らせていただいております。",
         "lead": "初めての方は、ご来店前にご確認ください。",
-        "image": "interior.jpg",
+        "image": "interior-counter-2026.jpg",
     },
     {
         "slug": "access", "anchor": "access", "sections": ["access"],

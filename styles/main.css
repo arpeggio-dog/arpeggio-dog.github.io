@@ -536,14 +536,10 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
 /* 2026-10: store and indigo photography */
 .cafe-image.cafe-interior img, .collection-image.collection-shirts .photo { aspect-ratio: 585 / 438; height: auto; object-fit: contain; }
 .cafe-image.cafe-interior figcaption { font: 400 13px/1.7 var(--f-body); letter-spacing: .08em; color: var(--muted); }
-.interior-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; margin-top: 52px; padding-top: 32px; border-top: 1px solid var(--line); }
-.interior-gallery img, .access-exterior img { width: 100%; height: auto; aspect-ratio: 585 / 438; }
-.interior-gallery figcaption, .access-exterior figcaption { margin-top: 14px; font-size: 13px; line-height: 1.7; letter-spacing: .05em; color: var(--muted); }
-.interior-gallery figcaption span { margin-right: 14px; font-family: var(--f-mark); color: var(--ink); }
+.access-exterior img { width: 100%; height: auto; aspect-ratio: 585 / 438; }
+.access-exterior figcaption { margin-top: 14px; font-size: 13px; line-height: 1.7; letter-spacing: .05em; color: var(--muted); }
 .access-details { min-width: 0; }
 .access-exterior { margin-top: 32px; }
-@media (max-width: 800px) { .interior-gallery { gap: 18px; } }
 @media (max-width: 600px) {
-  .interior-gallery { grid-template-columns: 1fr; gap: 28px; margin-top: 32px; padding-top: 28px; }
-  .interior-gallery figcaption, .access-exterior figcaption { margin-top: 10px; }
+  .access-exterior figcaption { margin-top: 10px; }
 }
