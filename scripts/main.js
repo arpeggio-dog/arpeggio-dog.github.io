@@ -108,6 +108,9 @@
     var onManual = function () {};
 
     function render() {
+      if (box.id === 'heroSlides') {
+        box.classList.toggle('is-exterior', photos[current].getAttribute('src').indexOf('exterior-entrance.webp') !== -1);
+      }
       photos.forEach(function (photo, index) {
         photo.classList.toggle('is-on', index === current);
         photo.setAttribute('aria-hidden', String(index !== current));
