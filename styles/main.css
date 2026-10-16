@@ -608,3 +608,11 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
   .mobile-actions a + a { flex: .7; }
   .mobile-actions .mobile-store { flex: .8; }
 }
+
+
+/* Give the mobile shop action a distinct, high-contrast target. */
+@media (max-width: 600px) {
+  .mobile-actions .mobile-store { background: #ffffff; color: #1b1b1b; font-weight: 700; }
+  .mobile-actions .mobile-store:hover { background: #f3f3f3; color: #1b1b1b; }
+  .mobile-actions .mobile-store:focus-visible { outline-offset: -4px; }
+}
