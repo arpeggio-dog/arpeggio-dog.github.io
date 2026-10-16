@@ -553,7 +553,7 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
   .hero h1 {
     order: -1;
     align-self: stretch;
-    margin: 0 0 18px;
+    margin: 0 0 32px;
     font-size: clamp(26px, 7.6vw, 34px);
     line-height: 1.45;
     letter-spacing: .04em;
