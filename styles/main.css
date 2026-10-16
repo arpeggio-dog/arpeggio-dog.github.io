@@ -548,14 +548,25 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
 /* Keep the complete hero photograph visible on phones. */
 @media (max-width: 600px) {
   .hero-visual { order: -1; padding: 16px 16px 0; }
+  .hero-copy { padding: 18px 24px 32px; }
+  .hero h1 {
+    order: -1;
+    align-self: stretch;
+    margin: 0 0 24px;
+    font-size: clamp(26px, 7.6vw, 34px);
+    line-height: 1.45;
+    letter-spacing: .04em;
+    text-align: center;
+  }
+  .hero h1 br:first-of-type { display: none; }
   .slides { height: auto; min-height: 0; background: #151515; }
   .hero-media {
     position: relative;
     inset: auto;
     width: 100%;
     aspect-ratio: 2 / 3;
-    max-height: calc(100vh - var(--header-height) - 156px);
-    max-height: calc(100svh - var(--header-height) - 156px);
+    max-height: calc(100vh - var(--header-height) - 264px - env(safe-area-inset-bottom, 0px));
+    max-height: calc(100svh - var(--header-height) - 264px - env(safe-area-inset-bottom, 0px));
   }
   .slides .photo { object-fit: contain; object-position: 50% 50% !important; }
   .slides::after, .slides .photo-tag { display: none; }
