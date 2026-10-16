@@ -565,11 +565,16 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
     position: relative;
     inset: auto;
     width: 100%;
+    overflow: hidden;
     aspect-ratio: 2 / 3;
     max-height: calc(100vh - var(--header-height) - 232px - env(safe-area-inset-bottom, 0px));
     max-height: calc(100svh - var(--header-height) - 232px - env(safe-area-inset-bottom, 0px));
   }
   .slides .photo { object-fit: contain; object-position: 50% 50% !important; }
+  .slides .photo[src$="indigo-shirts-portrait.webp"] {
+    transform: scale(1.5);
+    transform-origin: 50% 60%;
+  }
   .slides::after, .slides .photo-tag { display: none; }
   .hero-photo-bottom {
     position: static;
