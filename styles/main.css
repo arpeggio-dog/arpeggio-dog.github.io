@@ -583,3 +583,23 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
   .slide-count { display: block; font-size: 11px; }
   .dots button { width: 24px; }
 }
+
+
+/* Online shop links share the site's restrained monochrome treatment. */
+.nav-store span { margin-left: 4px; }
+.store-cta { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule); }
+.store-cta p { max-width: 38em; font-size: 14px; line-height: 1.9; color: var(--soft); }
+.store-cta .btn { margin-top: 16px; }
+.btn-store { color: var(--blanc); border-color: var(--rule); }
+.btn-store:hover { color: var(--noir); background: var(--blanc); border-color: var(--blanc); }
+@media (min-width: 1101px) and (max-width: 1500px) {
+  nav ul { gap: 16px; }
+  .nav-extra { display: none; }
+}
+@media (max-width: 600px) {
+  .hero-actions > .btn { width: 100%; }
+  .store-cta .btn { width: 100%; gap: 12px; }
+  .mobile-actions a { min-width: 0; padding-inline: 6px; gap: 6px; font-size: 12px; }
+  .mobile-actions a + a { flex: .7; }
+  .mobile-actions .mobile-store { flex: .8; }
+}
