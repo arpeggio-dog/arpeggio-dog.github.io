@@ -545,7 +545,7 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
   .access-exterior figcaption { margin-top: 10px; }
 }
 
-/* Keep the complete hero photograph visible on phones. */
+/* Keep mobile hero photos and the headline together without side bars. */
 @media (max-width: 600px) {
   .hero-visual { order: -1; padding: 16px 16px 0; }
   .hero-copy { padding: 18px 24px 32px; }
@@ -559,7 +559,7 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
     text-align: center;
   }
   .hero h1 br:first-of-type { display: none; }
-  .slides { height: auto; min-height: 0; background: #151515; }
+  .slides { height: auto; min-height: 0; background: var(--paper); }
   .hero-media {
     position: relative;
     inset: auto;
@@ -568,7 +568,12 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
     max-height: calc(100vh - var(--header-height) - 264px - env(safe-area-inset-bottom, 0px));
     max-height: calc(100svh - var(--header-height) - 264px - env(safe-area-inset-bottom, 0px));
   }
-  .slides .photo { object-fit: contain; object-position: 50% 50% !important; }
+  .slides .photo { object-fit: cover; }
+  .slides .photo[src$="indigo-shirts-portrait.webp"] { object-position: 50% 60% !important; }
+  .slides .photo[src$="cafe-cups.jpg"], .slides .photo[src$="dye-hands.jpg"] {
+    object-fit: contain;
+    object-position: 50% 50% !important;
+  }
   .slides::after, .slides .photo-tag { display: none; }
   .hero-photo-bottom {
     position: static;
