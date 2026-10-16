@@ -571,6 +571,12 @@ nav a[aria-current="page"] { color: #ffffff; text-decoration: underline; }
     max-height: calc(100svh - var(--header-height) - 232px - env(safe-area-inset-bottom, 0px));
   }
   .slides .photo { object-fit: contain; object-position: 50% 50% !important; }
+  .slides .photo[src$="exterior-entrance.webp"] {
+    object-fit: cover;
+    object-position: 100% 65% !important;
+    transform: scale(1.06);
+    transform-origin: 100% 65%;
+  }
   .slides .photo[src$="indigo-shirts-portrait.webp"] {
     transform: scale(1.5);
     transform-origin: 50% 60%;
