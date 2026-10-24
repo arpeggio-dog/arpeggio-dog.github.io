@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://arpeggio-dog.github.io/</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -38,6 +38,11 @@
   <url>
     <loc>https://arpeggio-dog.github.io/access/</loc>
     <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://arpeggio-dog.github.io/raiki/</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>

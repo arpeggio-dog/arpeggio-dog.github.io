@@ -168,6 +168,9 @@ for p in PAGES:
 
 # sitemap
 urls = [SITE + "/"] + ["%s/%s/" % (SITE, p["slug"]) for p in PAGES]
+# 手作業で制作する人物紹介ページもサイトマップに残す。
+if (ROOT / "raiki" / "index.html").exists():
+    urls.append(SITE + "/raiki/")
 lastmod = __import__("datetime").date.today().isoformat()
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for u in urls:

@@ -1,0 +1,17 @@
+.raiki-entry{background:#151515;color:#fff;padding-block:76px}
+.raiki-entry-layout{display:grid;grid-template-columns:1fr 300px;gap:90px;align-items:center;max-width:1040px;margin-inline:auto}
+.raiki-entry .raiki-entry-eyebrow{font:400 11px/1.6 var(--f-mark);letter-spacing:.13em;color:#c2c2b8}
+.raiki-entry h2{font:400 34px/1.5 var(--f-body);letter-spacing:.15em;margin-top:22px}
+.raiki-entry .raiki-entry-role{font-size:12px;color:#bdbdb4;margin-top:9px}
+.raiki-entry .raiki-entry-heading{font:500 clamp(21px,2.1vw,29px)/1.75 var(--f-body);letter-spacing:-.025em;margin-top:25px}
+.raiki-entry .raiki-entry-body{font-size:14px;line-height:2;color:#c5c5bc;margin-top:18px;max-width:34em}
+.raiki-entry .raiki-entry-links{display:flex;align-items:center;gap:25px;flex-wrap:wrap;margin-top:28px}
+.raiki-entry .raiki-entry-button{display:inline-flex;align-items:center;justify-content:space-between;gap:38px;padding:16px 21px;border:1px solid #a3a39a;color:#fff;font-size:13px;line-height:1.7;text-decoration:none;transition:background .2s,color .2s}
+.raiki-entry .raiki-entry-button:hover{background:#fff;color:#151515}
+.raiki-entry .raiki-entry-note{font-size:12px;color:#cccac1;text-underline-offset:6px}
+.raiki-entry-photo{margin:0}
+.raiki-entry-photo img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover}
+.raiki-entry-photo figcaption{font:400 9px/1.7 var(--f-mark);letter-spacing:.15em;color:#b5b5aa;margin-top:12px}
+@media(max-width:1000px){.raiki-entry-layout{grid-template-columns:1fr 240px;gap:50px}}
+@media(max-width:640px){.raiki-entry{padding-block:54px}.raiki-entry-layout{grid-template-columns:1fr;gap:30px}.raiki-entry h2{font-size:29px;margin-top:18px}.raiki-entry .raiki-entry-heading{font-size:22px;line-height:1.8;margin-top:22px}.raiki-entry .raiki-entry-body{font-size:13px}.raiki-entry-photo{width:200px;grid-row:1}.raiki-entry .raiki-entry-links{gap:22px}.raiki-entry .raiki-entry-button{padding:15px 18px;gap:29px}.raiki-entry-photo figcaption{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.raiki-entry .raiki-entry-button{transition:none}}
