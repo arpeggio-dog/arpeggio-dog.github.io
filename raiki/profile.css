@@ -134,3 +134,15 @@ svg{display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-wi
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.project-image:hover img{transform:none}}
 
 .profile-body p+p{margin-top:18px}.owner-message+.vision-signoff{font-family:var(--sans);letter-spacing:.04em;font-size:12px}
+
+/* Keep the complete waist-up portrait and heading together on small screens. */
+@media(max-width:640px){
+ .hero-main{gap:12px;padding-block:18px 20px}
+ .hero-copy{display:contents}
+ .hero-eyebrow{order:1}
+ .hero h1{order:2;line-height:1.4;margin-top:10px}
+ .hero-name{order:3;margin-top:4px}
+ .hero-role{order:4;margin-top:0}
+ .hero-portrait{order:5;justify-self:center;width:min(100%,max(0px,calc((100svh - 250px - clamp(30px,8.2vw,50px)*4.2)*36/41)))}
+ .hero-summary{order:6;margin-top:8px;max-width:none}
+}
