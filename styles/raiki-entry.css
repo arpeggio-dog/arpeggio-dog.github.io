@@ -10,7 +10,7 @@
 .raiki-entry .raiki-entry-button:hover{background:#fff;color:#151515}
 .raiki-entry .raiki-entry-note{font-size:12px;color:#cccac1;text-underline-offset:6px}
 .raiki-entry-photo{margin:0}
-.raiki-entry-photo img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover}
+.raiki-entry-photo img{display:block;width:100%;height:auto;aspect-ratio:36/41;object-fit:cover;object-position:50% 30.77%}
 .raiki-entry-photo figcaption{font:400 9px/1.7 var(--f-mark);letter-spacing:.15em;color:#b5b5aa;margin-top:12px}
 @media(max-width:1000px){.raiki-entry-layout{grid-template-columns:1fr 240px;gap:50px}}
 @media(max-width:640px){.raiki-entry{padding-block:54px}.raiki-entry-layout{grid-template-columns:1fr;gap:30px}.raiki-entry h2{font-size:29px;margin-top:18px}.raiki-entry .raiki-entry-heading{font-size:22px;line-height:1.8;margin-top:22px}.raiki-entry .raiki-entry-body{font-size:13px}.raiki-entry-photo{width:200px;grid-row:1}.raiki-entry .raiki-entry-links{gap:22px}.raiki-entry .raiki-entry-button{padding:15px 18px;gap:29px}.raiki-entry-photo figcaption{font-size:8px}}
