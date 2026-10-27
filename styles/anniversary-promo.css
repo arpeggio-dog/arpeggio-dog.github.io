@@ -1,0 +1,17 @@
+.anniversary-promo { padding:0; background:#1e3931; color:#faf7ef; border-bottom:1px solid #a89a74; }
+.anniversary-promo[hidden] { display:none; }
+.anniversary-promo-inner { display:grid; grid-template-columns:160px minmax(0,1fr) auto; align-items:center; gap:44px; padding-block:32px; }
+.anniversary-promo-date { padding-right:36px; border-right:1px solid #b6aa8266; }
+.anniversary-promo-date>span { display:block; font:400 14px/1.4 var(--f-mark); letter-spacing:.17em; color:#d8cba4; }
+.anniversary-promo-date time { display:block; }
+.anniversary-promo-date strong { display:block; font:400 49px/1.25 var(--f-serif); letter-spacing:.015em; white-space:nowrap; }
+.anniversary-promo-date time>span { font-size:12px; letter-spacing:.2em; }
+.anniversary-promo-copy>p { font:400 13px/1.6 var(--f-mark); letter-spacing:.13em; color:#e0d3ae; }
+.anniversary-promo-copy h2 { font:400 27px/1.7 var(--f-head); letter-spacing:.07em; margin-top:8px; text-wrap:initial; }
+.anniversary-promo-copy ul { display:flex; flex-wrap:wrap; gap:4px 22px; list-style:none; padding:0; margin:12px 0 0; font-size:12px; line-height:1.8; }
+.anniversary-promo-copy li>span { font-family:var(--f-mark); color:#e0d3ae; margin-right:9px; }
+.anniversary-promo-link { display:flex; justify-content:space-between; align-items:center; gap:24px; min-height:54px; padding:14px 20px; border:1px solid #d8cba4; text-decoration:none; font-size:13px; line-height:1.8; white-space:nowrap; transition:background .2s,color .2s; }
+.anniversary-promo-link:hover { background:#f4eddb; color:#1e3931; }
+@media(max-width:1100px) { .anniversary-promo-inner { grid-template-columns:125px minmax(0,1fr); gap:22px 28px; } .anniversary-promo-date { grid-row:1/3; padding-right:24px; } .anniversary-promo-date strong { font-size:44px; } .anniversary-promo-copy h2 { font-size:24px; } .anniversary-promo-link { justify-self:start; grid-column:2; } }
+@media(max-width:640px) { .anniversary-promo-inner { grid-template-columns:1fr; gap:18px; padding:26px 20px; } .anniversary-promo-date { grid-row:auto; padding:0; border:0; display:flex; align-items:baseline; gap:12px; } .anniversary-promo-date time { display:flex; align-items:baseline; gap:12px; } .anniversary-promo-date strong { font-size:37px; } .anniversary-promo-date>span { font-size:12px; } .anniversary-promo-date time>span { font-size:11px; } .anniversary-promo-copy>p { font-size:11px; } .anniversary-promo-copy h2 { font-size:24px; line-height:1.65; margin-top:7px; } .anniversary-promo-copy ul { flex-direction:column; gap:2px; font-size:12px; margin-top:10px; } .anniversary-promo-link { grid-column:1; width:100%; font-size:13px; } }
+@media(prefers-reduced-motion:reduce) { .anniversary-promo-link { transition:none; } }
