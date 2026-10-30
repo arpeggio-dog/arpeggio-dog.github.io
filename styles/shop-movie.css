@@ -1,0 +1,18 @@
+/* The introduction movie is independent of the existing hero slideshow. */
+.shop-movie { padding-block: 64px; background: var(--paper-deep); border-bottom: 1px solid var(--line); }
+.shop-movie-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .8fr); align-items: center; gap: clamp(48px, 8vw, 124px); }
+.shop-movie-copy { max-width: 540px; }
+.shop-movie-copy h2 { margin: 22px 0 26px; font-family: var(--f-head); font-size: clamp(30px, 3.5vw, 46px); line-height: 1.65; font-weight: 500; letter-spacing: .08em; }
+.shop-movie-copy .txt { margin: 0; }
+.shop-movie-note { margin: 24px 0 30px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+.shop-movie-figure { width: min(100%, 380px, calc(66svh * 404 / 720)); margin: 0 auto; }
+.shop-movie-video { display: block; width: 100%; height: auto; aspect-ratio: 404 / 720; object-fit: contain; background: #151515; box-shadow: 0 18px 48px rgb(0 0 0 / .1); }
+.shop-movie-figure figcaption { margin-top: 16px; text-align: center; color: var(--muted); font: 500 10px/1.6 var(--f-mark); letter-spacing: .17em; }
+@media (max-width: 700px) {
+  .shop-movie { padding-block: 48px; }
+  .shop-movie-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .shop-movie-copy h2 { margin: 16px 0 18px; font-size: 30px; line-height: 1.55; }
+  .shop-movie-copy .txt { font-size: 14px; }
+  .shop-movie-note { margin: 18px 0 20px; font-size: 12px; }
+  .shop-movie-figure { width: min(100%, 340px, calc(70svh * 404 / 720)); }
+}
