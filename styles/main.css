@@ -187,7 +187,6 @@ nav .nav-extra { display: none; }
 }
 @media (max-width: 600px) {
   .hero-category { font-size: 12px; }
-  .hero h1 br:first-of-type { display: none; }
   .hero-media { height: clamp(280px, calc(100svh - var(--header-height) - 330px), 128vw); }
   .photo-tag { font-size: 12px; }
   .slide-count { display: none; }
