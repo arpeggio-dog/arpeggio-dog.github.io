@@ -256,4 +256,43 @@
   watchMedia(reducedMotion, function () {
     if (reducedMotion.matches) groups.forEach(function (group) { group.pause(); });
   });
+
+  /* 店舗紹介動画：大きな再生ボタンと、再生／一時停止・音声の切り替え */
+  var movie = document.getElementById('shopMovie');
+  if (movie) {
+    var frame = movie.closest('.shop-movie-frame');
+    var bigPlay = document.querySelector('[data-movie-play]');
+    var toggle = document.querySelector('[data-movie-toggle]');
+    var mute = document.querySelector('[data-movie-mute]');
+    function syncMovie() {
+      var playing = !movie.paused && !movie.ended;
+      if (toggle) {
+        toggle.querySelector('.movie-icon').className = 'movie-icon ' + (playing ? 'is-pause' : 'is-play');
+        toggle.querySelector('.movie-btn-text').textContent = playing ? '一時停止' : (movie.currentTime > 0 && !movie.ended ? '続きを再生' : '再生する');
+        toggle.setAttribute('aria-label', playing ? '動画を一時停止する' : '動画を再生する');
+      }
+      if (mute) {
+        var silent = movie.muted || movie.volume === 0;
+        mute.querySelector('.movie-icon').className = 'movie-icon ' + (silent ? 'is-muted' : 'is-sound');
+        mute.querySelector('.movie-btn-text').textContent = silent ? '音声 オフ' : '音声 オン';
+        mute.setAttribute('aria-pressed', String(silent));
+        mute.setAttribute('aria-label', silent ? '音声をオンにする（現在オフ）' : '音声をオフにする（現在オン）');
+      }
+      if (frame && (playing || movie.currentTime > 0)) frame.classList.add('is-started');
+    }
+    function playMovie() {
+      var result = movie.play();
+      if (result && result.catch) result.catch(function () {});
+    }
+    if (bigPlay) bigPlay.addEventListener('click', function () { playMovie(); movie.focus({ preventScroll: true }); });
+    if (toggle) toggle.addEventListener('click', function () { if (movie.paused || movie.ended) playMovie(); else movie.pause(); });
+    if (mute) mute.addEventListener('click', function () {
+      if (movie.muted || movie.volume === 0) { movie.muted = false; if (movie.volume === 0) movie.volume = 1; }
+      else movie.muted = true;
+    });
+    ['play', 'pause', 'ended', 'volumechange', 'timeupdate', 'loadedmetadata'].forEach(function (type) {
+      movie.addEventListener(type, syncMovie);
+    });
+    syncMovie();
+  }
 })();
