@@ -157,7 +157,7 @@ for p in PAGES:
 </main>
 {fix_links(footer, on_page)}
 {fix_links(mobile, on_page)}
-<script src="/scripts/main.js" defer></script>
+<script src="/scripts/main.js?v=20261031-motion" defer></script>
 </body>
 </html>
 """

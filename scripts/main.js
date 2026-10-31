@@ -295,4 +295,105 @@
     });
     syncMovie();
   }
+
+  /* 動きの演出：スクロールで現れる文字と写真、トップ写真の縮小、文字が順に灯る一文 */
+  if (root.classList.contains('motion')) {
+    var REVEAL = [
+      '.visit-strip-inner > *', '.shop-movie-copy > *', '.shop-movie-figure', '.sec-head', '.concept .body > *',
+      '.experience-head', '.point', '.cafe-copy > :not(.cafe-cups)', '.shop .body > *', '.levels-head',
+      '.swatches figure', '.craft-caption', '.goods-head', '.goods figcaption', '.brands', '.season figure',
+      '.photo-controls', '.info', '.oxygen .body', '.rules li', '.raiki-entry-copy > *', '.news-list > li',
+      '.news-more', '.media-list li', '.access-intro', '.map-foot', '.press > *', '.sns a', '.page-back'
+    ].join(',');
+    var REVEAL_MEDIA = [
+      '.concept-image img', '.cafe-image img', '.cafe-cups img', '.collection-image img', '.ai-gallery img',
+      '.goods img', '.oxygen > img', '.raiki-entry-photo-crop', '.map-img', '.access-exterior img'
+    ].join(',');
+    var viewHeight = function () { return window.innerHeight || root.clientHeight; };
+    var clamp = function (value) { return Math.min(1, Math.max(0, value)); };
+    var inView = function (el) {
+      var rect = el.getBoundingClientRect();
+      return rect.top < viewHeight() && rect.bottom > 0;
+    };
+
+    var revealer = new IntersectionObserver(function (entries) {
+      // 同時に現れたものは、少しずつ時間をずらして順番に
+      entries.filter(function (entry) { return entry.isIntersecting; }).forEach(function (entry, index) {
+        entry.target.style.transitionDelay = Math.min(index, 6) * 90 + 'ms';
+        entry.target.classList.add('is-in');
+        revealer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    function prepare(selector, className) {
+      document.querySelectorAll(selector).forEach(function (el) {
+        // 最初から見えているものと、すでに演出の付いた要素の中身は動かさない
+        if (inView(el) || (el.parentElement && el.parentElement.closest('.reveal, .reveal-media'))) return;
+        el.classList.add(className);
+        revealer.observe(el);
+      });
+    }
+    prepare(REVEAL_MEDIA, 'reveal-media');
+    prepare(REVEAL, 'reveal');
+    window.addEventListener('load', function () {
+      // ページ内リンクで途中から開いた場合などに、見えている要素を取りこぼさない
+      document.querySelectorAll('.reveal:not(.is-in), .reveal-media:not(.is-in)').forEach(function (el) {
+        if (inView(el)) { el.classList.add('is-in'); revealer.unobserve(el); }
+      });
+    }, { once: true });
+
+    var scrubs = Array.from(document.querySelectorAll('.experience-head > p:last-child, .craft-caption > p:last-child')).map(function (el) {
+      var visual = document.createElement('span');
+      var label = document.createElement('span');
+      var count = 0;
+      visual.setAttribute('aria-hidden', 'true');
+      Array.from(el.childNodes).forEach(function (node) {
+        if (node.nodeType !== 3) { visual.appendChild(node.cloneNode(true)); return; }
+        Array.from(node.textContent).forEach(function (character) {
+          var span = document.createElement('span');
+          span.className = 'scrub-char';
+          span.style.setProperty('--i', count);
+          span.textContent = character;
+          visual.appendChild(span);
+          count += 1;
+        });
+      });
+      label.className = 'visually-hidden';
+      label.textContent = el.textContent;
+      el.textContent = '';
+      el.append(label, visual);
+      el.classList.add('scrub');
+      return { el: el, count: count };
+    });
+
+    var heroBox = document.querySelector('.hero');
+    var heroMedia = document.querySelector('.hero-media');
+    var motionQueued = false;
+    function updateMotion() {
+      motionQueued = false;
+      if (!root.classList.contains('motion')) return;
+      var height = viewHeight();
+      if (heroBox && heroMedia) {
+        var heroRect = heroBox.getBoundingClientRect();
+        if (heroRect.bottom > 0) heroMedia.style.setProperty('--hero-p', clamp(-heroRect.top / heroRect.height).toFixed(3));
+      }
+      scrubs.forEach(function (scrub) {
+        var top = scrub.el.getBoundingClientRect().top;
+        if (top > height || top < -height) return;
+        // 画面の下の方に入ってから中ほどに来るまでに、一文字ずつ灯る
+        var progress = clamp((height * 0.9 - top) / (height * 0.4));
+        scrub.el.style.setProperty('--lit', (progress * (scrub.count + 3) - 1).toFixed(2));
+      });
+    }
+    function queueMotion() {
+      if (!motionQueued) {
+        motionQueued = true;
+        window.requestAnimationFrame(updateMotion);
+      }
+    }
+    updateMotion();
+    window.addEventListener('scroll', queueMotion, { passive: true });
+    window.addEventListener('resize', queueMotion, { passive: true });
+    // 途中で「視差効果を減らす」に切り替えられたら、すべて止めて普通の表示に戻す
+    watchMedia(reducedMotion, function () { if (reducedMotion.matches) root.classList.remove('motion'); });
+  }
 })();
