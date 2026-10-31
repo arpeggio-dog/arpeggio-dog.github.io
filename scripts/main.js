@@ -81,9 +81,18 @@
   if ('ResizeObserver' in window && header) new ResizeObserver(measureHeader).observe(header);
 
   var scrollQueued = false;
+  var darkZones = Array.from(document.querySelectorAll('.anniversary-promo, .hero, .visit-strip, .shop-movie, .indigo-block, .raiki-entry, footer'));
   function updateScrollState() {
     scrollQueued = false;
-    if (header) header.classList.toggle('is-scrolled', window.scrollY > 24);
+    if (!header) return;
+    header.classList.toggle('is-scrolled', window.scrollY > 24);
+    // 黒や藍のセクションの上にいるあいだは、ヘッダーも暗い色に切り替える
+    var line = header.getBoundingClientRect().bottom;
+    header.classList.toggle('is-dark', darkZones.some(function (zone) {
+      if (zone.hidden) return false;
+      var rect = zone.getBoundingClientRect();
+      return rect.top <= line + 1 && rect.bottom > line;
+    }));
   }
   updateScrollState();
   window.addEventListener('scroll', function () {
@@ -108,9 +117,6 @@
     var onManual = function () {};
 
     function render() {
-      if (box.id === 'heroSlides') {
-        box.classList.toggle('is-exterior', photos[current].getAttribute('src').indexOf('exterior-entrance.webp') !== -1);
-      }
       photos.forEach(function (photo, index) {
         photo.classList.toggle('is-on', index === current);
         photo.setAttribute('aria-hidden', String(index !== current));
@@ -244,8 +250,27 @@
     apply(paused);
   }
 
-  var hero = createSlideshow(document.getElementById('heroSlides'), 6500, document.getElementById('heroCount'));
-  connectToggle(document.getElementById('heroPause'), [hero], 'トップ写真', true);
+  /* トップの写真モザイク：ゆっくり流れ続けるので、一時停止できるようにする */
+  var mosaic = document.getElementById('heroMosaic');
+  var mosaicButton = document.getElementById('heroPause');
+  if (mosaic && mosaicButton && root.classList.contains('motion')) {
+    var mosaicPaused = false;
+    var applyMosaic = function (value) {
+      mosaicPaused = value;
+      mosaic.classList.toggle('is-paused', value);
+      mosaicButton.textContent = value ? '再開' : '一時停止';
+      mosaicButton.setAttribute('aria-label', 'トップ写真の動きを' + (value ? '再開' : '一時停止'));
+      mosaicButton.setAttribute('aria-pressed', String(value));
+    };
+    mosaicButton.hidden = false;
+    mosaicButton.addEventListener('click', function () { applyMosaic(!mosaicPaused); });
+    groups.push({ pause: function () { applyMosaic(true); } });
+    applyMosaic(false);
+    // 画面の外にあるあいだは止めておく
+    new IntersectionObserver(function (entries) {
+      mosaic.classList.toggle('is-offscreen', !entries[0].isIntersecting);
+    }).observe(mosaic);
+  }
   var seasons = Array.from(document.querySelectorAll('#seasonSlides .ss')).map(function (box, index) {
     return createSlideshow(box, 6200 + index * 450);
   });
@@ -299,7 +324,7 @@
   /* 動きの演出：スクロールで現れる文字と写真、トップ写真の縮小、文字が順に灯る一文 */
   if (root.classList.contains('motion')) {
     var REVEAL = [
-      '.visit-strip-inner > *', '.shop-movie-copy > *', '.shop-movie-figure', '.sec-head', '.concept .body > *',
+      '.hero-prologue .wrap > *', '.visit-strip-inner > *', '.shop-movie-copy > *', '.shop-movie-figure', '.sec-head', '.concept .body > *',
       '.experience-head', '.point', '.cafe-copy > :not(.cafe-cups)', '.shop .body > *', '.levels-head',
       '.swatches figure', '.craft-caption', '.goods-head', '.goods figcaption', '.brands', '.season figure',
       '.photo-controls', '.info', '.oxygen .body', '.rules li', '.raiki-entry-copy > *', '.news-list > li',
@@ -365,16 +390,15 @@
       return { el: el, count: count };
     });
 
-    var heroBox = document.querySelector('.hero');
-    var heroMedia = document.querySelector('.hero-media');
+    var heroStage = document.querySelector('.hero-stage');
     var motionQueued = false;
     function updateMotion() {
       motionQueued = false;
       if (!root.classList.contains('motion')) return;
       var height = viewHeight();
-      if (heroBox && heroMedia) {
-        var heroRect = heroBox.getBoundingClientRect();
-        if (heroRect.bottom > 0) heroMedia.style.setProperty('--hero-p', clamp(-heroRect.top / heroRect.height).toFixed(3));
+      if (heroStage) {
+        var heroRect = heroStage.getBoundingClientRect();
+        if (heroRect.bottom > 0) heroStage.style.setProperty('--hero-p', clamp(-heroRect.top / heroRect.height).toFixed(3));
       }
       scrubs.forEach(function (scrub) {
         var top = scrub.el.getBoundingClientRect().top;

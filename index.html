@@ -68,8 +68,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
-<meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="styles/main.css?v=20261031-motion">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="stylesheet" href="styles/main.css?v=20261031-lux">
 <script>
   /* 動きの演出を使える環境なら最初の描画前に印をつける（「視差効果を減らす」設定の方には動きを付けない） */
   if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) document.documentElement.classList.add('motion');
@@ -150,28 +150,26 @@
   </section>
 
   <div class="hero" id="main-content" tabindex="-1">
-    <div class="hero-grid">
-      <div class="hero-title">
+    <div class="hero-stage">
+      <div class="hero-mosaic" id="heroMosaic" aria-hidden="true">
+        <div class="mosaic-col"><div class="mosaic-set"><img src="images/hero/dye-hands.webp" alt="" width="640" height="480" decoding="async"><img src="images/hero/ps-autumn-3.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/interior-cafe.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/indigo-wear.webp" alt="" width="640" height="640" decoding="async"></div><div class="mosaic-set"><img src="images/hero/dye-hands.webp" alt="" width="640" height="480" decoding="async"><img src="images/hero/ps-autumn-3.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/interior-cafe.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/indigo-wear.webp" alt="" width="640" height="640" decoding="async"></div></div>
+        <div class="mosaic-col"><div class="mosaic-set"><img src="images/hero/indigo-shirts-portrait.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/cafe-cups.webp" alt="" width="640" height="480" decoding="async"><img src="images/hero/noren.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/ps-newyear-1.webp" alt="" width="640" height="853" decoding="async"></div><div class="mosaic-set"><img src="images/hero/indigo-shirts-portrait.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/cafe-cups.webp" alt="" width="640" height="480" decoding="async"><img src="images/hero/noren.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/ps-newyear-1.webp" alt="" width="640" height="853" decoding="async"></div></div>
+        <div class="mosaic-col"><div class="mosaic-set"><img src="images/hero/ps-autumn-7.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/exterior-entrance.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/dye-craft.webp" alt="" width="640" height="800" decoding="async"><img src="images/hero/ps-autumn-5.webp" alt="" width="640" height="853" decoding="async"></div><div class="mosaic-set"><img src="images/hero/ps-autumn-7.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/exterior-entrance.webp" alt="" width="640" height="853" decoding="async"><img src="images/hero/dye-craft.webp" alt="" width="640" height="800" decoding="async"><img src="images/hero/ps-autumn-5.webp" alt="" width="640" height="853" decoding="async"></div></div>
+      </div>
+      <div class="hero-center">
         <p class="label">Tokushima, Kamiita</p>
-        <p class="hero-category">ドッグカフェ &amp; ショップ／アルペジオ</p>
+        <img class="hero-logo" src="images/logo-full.png" alt="ARPEGGIO for doglovers" width="900" height="669" fetchpriority="high">
         <h1>心ほどける<br>ひとときを。</h1>
+        <p class="hero-category">ドッグカフェ &amp; ショップ／アルペジオ</p>
       </div>
-      <div class="hero-visual">
-        <div class="slides is-exterior" id="heroSlides" aria-roledescription="スライドショー" aria-label="ARPEGGIOの店舗とものづくり">
-          <div class="hero-media">
-            <img class="photo is-on" fetchpriority="high" src="images/exterior-entrance.webp" alt="青空を背景にした、黒い屋根の建物の外観" width="1600" height="2400" style="object-position:50% 60%">
-            <img decoding="async" class="photo" loading="lazy" src="images/interior-cafe.webp" alt="白い高天井に黒い照明レールがあり、木製の棚とカウンターが置かれた室内" width="1600" height="2400" style="object-position:50% 52%">
-            <img decoding="async" class="photo" src="images/cafe-cups.jpg" alt="ARPEGGIOのロゴ入りカップのコーヒーとドリンク" loading="lazy" width="2000" height="1333" style="object-position:50% 55%">
-            <img decoding="async" class="photo" src="images/dye-hands.jpg" alt="天然の藍で生地を染める職人の手" loading="lazy" width="2000" height="1124" style="object-position:45% 50%">
-            <img decoding="async" class="photo" loading="lazy" src="images/indigo-shirts-portrait.webp" alt="木製トルソーに着せた2着のドッグシャツ。深い藍の無地と、淡い色のむら染め" width="1600" height="2400" style="object-position:50% 56%">
-          </div>
-          <div class="hero-photo-bottom">
-            <p class="photo-tag">犬も、人も。心地よく。</p>
-            <div class="slide-controls"><span id="heroCount" class="slide-count" aria-hidden="true">01 / 05</span><div class="dots"><button class="on" type="button" data-slide="0" aria-label="外観の写真を見る" aria-current="true"></button><button type="button" data-slide="1" aria-label="店内の写真を見る"></button><button type="button" data-slide="2" aria-label="ドリンクの写真を見る"></button><button type="button" data-slide="3" aria-label="藍染の写真を見る"></button><button type="button" data-slide="4" aria-label="藍染ウェアの写真を見る"></button></div><button class="slideshow-toggle" id="heroPause" type="button" aria-controls="heroSlides" hidden>一時停止</button></div>
-          </div>
-        </div>
+      <div class="hero-foot">
+        <p class="hero-tag">犬も、人も。心地よく。</p>
+        <a class="hero-scroll" href="#hero-intro"><span>Scroll</span></a>
+        <button class="slideshow-toggle hero-pause" id="heroPause" type="button" hidden>一時停止</button>
       </div>
-      <div class="hero-body">
+    </div>
+    <div class="hero-prologue" id="hero-intro">
+      <div class="wrap">
         <p class="hero-lead">犬と暮らす人も、そうでない人も。<br>同じ時間を、心地よく。<br>徳島・上板町から、愛犬と過ごす豊かな日常を。</p>
         <div class="hero-actions">
           <a class="btn btn-solid" href="#access">アクセス・営業時間 <span aria-hidden="true">→</span></a>
@@ -580,7 +578,7 @@
   </div>
 </footer>
 <div class="mobile-actions" aria-label="ご来店・お買い物・お問い合わせ"><a href="#access"><b>アクセス</b><small>営業時間</small></a><a href="#rules"><b>来店ルール</b><small>はじめての方</small></a><a class="mobile-store" href="https://arpeggio.official.ec/items/all"><b>ショップ</b><small>商品を見る</small></a><a href="tel:0886613377"><b>電話</b><small>088-661-3377</small></a></div>
-<script src="scripts/main.js?v=20261031-motion" defer></script>
+<script src="scripts/main.js?v=20261031-lux" defer></script>
 <script>
   /* お問い合わせフォーム → Googleフォームへ送信 */
   (function () {
