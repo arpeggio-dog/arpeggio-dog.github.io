@@ -216,9 +216,14 @@ print("wrote thanks/index.html")
 # sitemap
 urls =[SITE + "/"] + ["%s/%s/" % (SITE, p["slug"]) for p in PAGES]
 # 手作業で制作する人物紹介・リンクページもサイトマップに残す。
-for manual_slug in ("raiki", "links"):
+for manual_slug in ("raiki", "links", "arpeggio-indigo", "arpeggio-indigo/en"):
     if (ROOT / manual_slug / "index.html").exists():
         urls.append(SITE + "/" + manual_slug + "/")
+# ARPEGGIO indigo（独立したブランドサイト）の個別ページ
+for page in ("arpeggio-indigo/collection.html", "arpeggio-indigo/press.html",
+             "arpeggio-indigo/en/collection.html", "arpeggio-indigo/en/press.html"):
+    if (ROOT / page).exists():
+        urls.append(SITE + "/" + page)
 lastmod = __import__("datetime").date.today().isoformat()
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for u in urls:
