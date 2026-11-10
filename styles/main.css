@@ -706,3 +706,19 @@ header.is-dark .menu-btn span { background: var(--white); }
 header.is-dark:has(nav.open) { background: rgb(255 255 255 / .96); color: var(--ink); }
 header.is-dark:has(nav.open) .mark img { filter: invert(1); }
 header.is-dark:has(nav.open) .menu-btn span { background: var(--ink); }
+
+/* =========================================================
+   使いやすさの追加（2026.11.10）
+   Apple の Human Interface Guidelines（HIG）に合わせて：
+   ・押せる場所は44px四方以上（見た目は変えず、当たり判定だけ広げる）
+   ・自動で動く写真の一時停止ボタンも高さ44pxに
+   ・黒・藍の地の上では、キーボード操作の枠を金色にして見やすく
+   ========================================================= */
+.slideshow-toggle { min-height: 44px; }
+.text-link, .visit-link, .hero-links a, .breadcrumb a, .foot-links a, .back-top { position: relative; }
+.text-link::before, .visit-link::before, .hero-links a::before, .breadcrumb a::before, .foot-links a::before, .back-top::before {
+  content: ""; position: absolute; left: -4px; right: -4px; top: 50%; height: 44px; transform: translateY(-50%);
+}
+.hero :focus-visible, .shop-movie :focus-visible, .indigo-block :focus-visible, .raiki-entry :focus-visible,
+footer :focus-visible, .visit-strip :focus-visible, .anniversary-promo :focus-visible, header.is-dark :focus-visible { outline-color: var(--gold); }
+header.is-dark:has(nav.open) :focus-visible { outline-color: currentColor; } /* スマホのメニューを開くと白地に戻るので、枠も文字色に戻す */

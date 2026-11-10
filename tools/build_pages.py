@@ -166,8 +166,55 @@ for p in PAGES:
     out.write_text(html, encoding="utf-8")
     print("wrote", out.relative_to(ROOT))
 
+# お問い合わせの完了ページ（/thanks/）
+# Google広告のコンバージョン（成果）はこのページでだけ数える。
+# 検索結果には出さない（noindex）・サイトマップにも入れない。
+# フォームから送信した直後だけ数える（URLを直接開いた場合は数えない）。
+THANKS_LABEL = "Skd8CKvRxJEdEPrlp_JE"  # Google広告のコンバージョンラベル（お問い合わせ完了）
+thanks_html = f"""<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>お問い合わせありがとうございました｜ARPEGGIO（アルペジオ）</title>
+<meta name="robots" content="noindex, nofollow">
+{fix_links(head_common, set())}
+<script>
+  /* コンバージョン計測：お問い合わせフォームから送信した直後の1回だけ数える */
+  (function () {{
+    var sent = false;
+    try {{ sent = sessionStorage.getItem('arpeggio-form-sent') === '1'; sessionStorage.removeItem('arpeggio-form-sent'); }} catch (e) {{}}
+    if (sent && typeof gtag === 'function') {{
+      gtag('event', 'conversion', {{ send_to: 'AW-18493338362/{THANKS_LABEL}', value: 1.0, currency: 'JPY' }});
+    }}
+  }})();
+</script>
+</head>
+<body class="subpage">
+<a class="skip-link" href="#main-content">本文へ移動</a>
+{fix_links(header, set()).replace('aria-label="ページ内メニュー"', 'aria-label="メニュー"')}
+<main id="top">
+  <div class="page-intro" id="main-content" tabindex="-1">
+    <div class="wrap">
+      <p class="label">Thank you</p>
+      <h1>お問い合わせ<br>ありがとうございました。</h1>
+      <p class="lead">内容を確認のうえ、店長よりご返信いたします。<br>数日たっても返信がない場合は、お手数ですがお電話（<a href="tel:0886613377">088-661-3377</a>）でご連絡ください。</p>
+    </div>
+  </div>
+  <div class="page-back"><div class="wrap"><a class="btn btn-solid" href="/">トップページへ戻る <span aria-hidden="true">→</span></a></div></div>
+</main>
+{fix_links(footer, set())}
+{fix_links(mobile, set())}
+<script src="/scripts/main.js?v=20261031-lux" defer></script>
+</body>
+</html>
+"""
+(ROOT / "thanks").mkdir(exist_ok=True)
+(ROOT / "thanks" / "index.html").write_text(thanks_html, encoding="utf-8")
+print("wrote thanks/index.html")
+
 # sitemap
-urls = [SITE + "/"] + ["%s/%s/" % (SITE, p["slug"]) for p in PAGES]
+urls =[SITE + "/"] + ["%s/%s/" % (SITE, p["slug"]) for p in PAGES]
 # 手作業で制作する人物紹介・リンクページもサイトマップに残す。
 for manual_slug in ("raiki", "links"):
     if (ROOT / manual_slug / "index.html").exists():
