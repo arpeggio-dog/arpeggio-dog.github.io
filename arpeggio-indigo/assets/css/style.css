@@ -670,3 +670,6 @@ html[lang="en"] .page-head__lead { line-height: 1.8; }
   ::view-transition-old(root) { animation-duration: .35s; }
   ::view-transition-new(root) { animation-duration: .55s; }
 }
+
+/* 飼い主用：着用イメージの注記 */
+.owners__note { max-width: 820px; margin: 28px auto 0; font-size: 12px; line-height: 1.9; letter-spacing: .06em; color: var(--c-text-mute); }
