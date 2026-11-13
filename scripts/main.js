@@ -417,6 +417,156 @@
     updateMotion();
     window.addEventListener('scroll', queueMotion, { passive: true });
     window.addEventListener('resize', queueMotion, { passive: true });
+
+    /* ---------- 仕上げの動き（2026.11.13） ----------
+       ・見出しが一行ずつ、下から静かにせり上がる
+       ・写真がスクロールよりわずかにゆっくり動く（奥行き）
+       ・藍や黒の章は、角の丸いカードが画面いっぱいに広がるように現れる
+       ・表の上の罫線が、左からすっと引かれる
+       ・ヘッダーの下に、読み進めた分だけ伸びる細い金の線
+       ・PCの広い画面では、左端に「いま何章目か」を小さく表示 */
+    document.querySelectorAll('main h2').forEach(function (heading) {
+      if (heading.closest('.hero, .anniversary-promo, .brands, .raiki-entry')) return;
+      var lines = [[]];
+      Array.from(heading.childNodes).forEach(function (node) {
+        if (node.nodeName === 'BR') lines.push([]);
+        else lines[lines.length - 1].push(node);
+      });
+      heading.textContent = '';
+      lines.forEach(function (nodes, index) {
+        var line = document.createElement('span');
+        var inner = document.createElement('span');
+        line.className = 'line';
+        inner.className = 'line-in';
+        inner.style.setProperty('--l', index);
+        nodes.forEach(function (node) { inner.appendChild(node); });
+        line.appendChild(inner);
+        heading.appendChild(line);
+        // 読み上げソフトでは行のあいだで言葉がつながらないよう、空白をはさむ
+        if (index < lines.length - 1) heading.appendChild(document.createTextNode(' '));
+      });
+      heading.classList.add('lines');
+    });
+
+    document.querySelectorAll('.btn span[aria-hidden], .text-link span[aria-hidden], .visit-link span[aria-hidden]').forEach(function (arrow) {
+      arrow.classList.add(arrow.textContent.trim() === '↗' ? 'arr-out' : 'arr');
+    });
+
+    var drawer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-drawn');
+        drawer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.rules, .news-list, .media-list, .info, .sns').forEach(function (list) {
+      // 折りたたみ（過去のお知らせ）の中は、開いたときにすぐ見えるよう演出を付けない
+      if (inView(list) || list.closest('details')) return;
+      list.classList.add('draw-line');
+      drawer.observe(list);
+    });
+
+    var progress = null;
+    if (header) {
+      progress = document.createElement('span');
+      progress.className = 'read-progress';
+      progress.setAttribute('aria-hidden', 'true');
+      header.appendChild(progress);
+    }
+
+    var wide = window.matchMedia('(min-width: 901px)');
+    var floaters = [];
+    var floatWatcher = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { entry.target.floatVisible = entry.isIntersecting; });
+    }, { rootMargin: '20% 0px 20% 0px' });
+    document.querySelectorAll('.concept-image img, .cafe-cups img, .collection-image img, .oxygen > img, .access-exterior img').forEach(function (el, index) {
+      el.classList.add('float');
+      // となり合う写真が同じ動きにならないよう、動く幅を少しずつ変える
+      el.floatDepth = index % 2 ? 34 : 22;
+      floaters.push(el);
+      floatWatcher.observe(el);
+    });
+
+    var expanders = Array.from(document.querySelectorAll('.indigo-block, .raiki-entry')).filter(function (el) { return !inView(el); });
+    expanders.forEach(function (el) { el.classList.add('expand'); });
+
+    var chapters = Array.from(document.querySelectorAll('main section')).map(function (section) {
+      var label = section.querySelector('.label');
+      var match = label && /^(\d\d)\s*\/\s*(.+)$/.exec(label.textContent.trim());
+      return match ? { el: section, no: match[1], name: match[2] } : null;
+    }).filter(Boolean);
+    var chapterMark = null;
+    var chapterNow = null;
+    var chapterTimer = 0;
+    if (chapters.length >= 3) {
+      chapterMark = document.createElement('div');
+      chapterMark.className = 'chapter-mark';
+      chapterMark.setAttribute('aria-hidden', 'true');
+      chapterMark.innerHTML = '<span class="chapter-no"></span><span class="chapter-bar"></span><span class="chapter-name"></span>';
+      document.body.appendChild(chapterMark);
+    }
+    function showChapter(chapter) {
+      if (chapter === chapterNow) return;
+      chapterNow = chapter;
+      window.clearTimeout(chapterTimer);
+      chapterMark.classList.remove('is-on');
+      if (!chapter) return;
+      chapterTimer = window.setTimeout(function () {
+        chapterMark.querySelector('.chapter-no').textContent = chapter.no + ' / ' + chapters[chapters.length - 1].no;
+        chapterMark.querySelector('.chapter-name').textContent = chapter.name;
+        chapterMark.classList.add('is-on');
+      }, 320);
+    }
+
+    var finishQueued = false;
+    function updateFinish() {
+      finishQueued = false;
+      if (!root.classList.contains('motion')) return;
+      var height = viewHeight();
+      if (progress) {
+        var scrollable = root.scrollHeight - height;
+        progress.style.setProperty('--read', scrollable > 0 ? clamp(window.scrollY / scrollable).toFixed(4) : 0);
+      }
+      floaters.forEach(function (el) {
+        if (!wide.matches) { if (el.style.translate) el.style.translate = ''; return; }
+        if (!el.floatVisible) return;
+        var rect = el.getBoundingClientRect();
+        // 画面の中央を通るときに元の位置。下から入るときは少し下、上へ抜けるときは少し上にずれる
+        var offset = ((rect.top + rect.height / 2) - height / 2) / height;
+        el.style.translate = '0 ' + (Math.max(-1, Math.min(1, offset)) * el.floatDepth).toFixed(1) + 'px';
+      });
+      expanders.forEach(function (el) {
+        var top = el.getBoundingClientRect().top;
+        var amount = clamp((height - top) / (height * 0.62));
+        el.style.setProperty('--ex', amount.toFixed(3));
+        el.classList.toggle('is-full', amount >= 1);
+      });
+      if (chapterMark) {
+        var active = null;
+        chapters.forEach(function (chapter) {
+          var rect = chapter.el.getBoundingClientRect();
+          if (rect.top < height * 0.55 && rect.bottom > height * 0.45) active = chapter;
+        });
+        showChapter(active);
+      }
+    }
+    function queueFinish() {
+      if (!finishQueued) {
+        finishQueued = true;
+        window.requestAnimationFrame(updateFinish);
+      }
+    }
+    updateFinish();
+    window.addEventListener('scroll', queueFinish, { passive: true });
+    window.addEventListener('resize', queueFinish, { passive: true });
+    window.addEventListener('load', queueFinish, { once: true });
+    watchMedia(reducedMotion, function () {
+      if (!reducedMotion.matches) return;
+      floaters.forEach(function (el) { el.style.translate = ''; });
+      if (chapterMark) chapterMark.remove();
+      if (progress) progress.remove();
+    });
+
     // 途中で「視差効果を減らす」に切り替えられたら、すべて止めて普通の表示に戻す
     watchMedia(reducedMotion, function () { if (reducedMotion.matches) root.classList.remove('motion'); });
   }

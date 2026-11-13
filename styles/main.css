@@ -724,3 +724,59 @@ header.is-dark:has(nav.open) .menu-btn span { background: var(--ink); }
 .hero :focus-visible, .shop-movie :focus-visible, .indigo-block :focus-visible, .raiki-entry :focus-visible,
 footer :focus-visible, .visit-strip :focus-visible, .anniversary-promo :focus-visible, header.is-dark :focus-visible { outline-color: var(--gold); }
 header.is-dark:has(nav.open) :focus-visible { outline-color: currentColor; } /* スマホのメニューを開くと白地に戻るので、枠も文字色に戻す */
+
+/* =========================================================
+   仕上げの動き（2026.11.13）
+   老舗ホテルや Apple のページのように、「静かだけれど、次を見たくなる」動きを足す。
+   すべて <html class="motion"> のときだけ動く（端末の「動きを減らす」設定では止まる）。
+   文章・写真・色・レイアウトは変えていない。
+   ========================================================= */
+
+/* ---------- 見出し：一行ずつ、下からせり上がる ---------- */
+.lines .line { display: block; overflow: hidden; overflow: clip; padding-block: .14em; margin-block: -.14em; }
+.lines .line-in { display: block; }
+.motion .lines .line-in { transition: transform 1.35s var(--ease-out) calc(var(--l, 0) * .13s + .08s); }
+.motion .reveal:not(.is-in) .line-in { transform: translate3d(0, 112%, 0); transition-duration: 0s; transition-delay: 0s; }
+
+/* ---------- 罫線：左からすっと引かれる ---------- */
+.motion .draw-line { position: relative; border-top-color: transparent; }
+.motion .draw-line::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: 0 50%; transition: transform 1.7s var(--ease-out) .1s; pointer-events: none; }
+.motion .draw-line.is-drawn::after { transform: none; }
+
+/* ---------- 写真：スクロールよりわずかにゆっくり動く／カーソルで静かに寄る ---------- */
+.motion .float { will-change: translate; }
+@media (hover: hover) and (min-width: 901px) {
+  .motion .goods img, .motion .ai-gallery img, .motion .betty-goods img { transition: clip-path 1.5s var(--ease-out), transform 1.8s var(--ease-out), scale 1.4s var(--ease-out); }
+  .motion .goods figure:hover img, .motion .ai-gallery img:hover, .motion .betty-goods figure:hover img { scale: 1.025; }
+}
+
+/* ---------- 藍・黒の章：角の丸いカードが、画面いっぱいに広がる ---------- */
+.motion .expand { --ex-gap: calc((1 - var(--ex, 1)) * 4.5vw); --ex-r: calc((1 - var(--ex, 1)) * 44px); clip-path: inset(0 var(--ex-gap) 0 var(--ex-gap) round var(--ex-r) var(--ex-r) 0 0); }
+.motion .expand.is-full { clip-path: none; }
+/* 広がる途中で、手前のセクションの地色（生成り）とのあいだにすき間の色が出ないようにする */
+.motion .shop-section:has(> .expand) { background: linear-gradient(to bottom, var(--paper) 0, var(--paper) 60vh, transparent 60vh); }
+
+/* ---------- 矢印：カーソルを乗せると、行き先へ少し進む ---------- */
+.btn .arr, .btn .arr-out, .text-link .arr, .text-link .arr-out, .visit-link .arr, .visit-link .arr-out { display: inline-block; transition: transform .5s var(--ease-out); }
+@media (hover: hover) {
+  .btn:hover .arr, .text-link:hover .arr, .visit-link:hover .arr { transform: translate3d(5px, 0, 0); }
+  .btn:hover .arr-out, .text-link:hover .arr-out, .visit-link:hover .arr-out { transform: translate3d(3px, -3px, 0); }
+}
+
+/* ---------- 読み進めた分だけ伸びる、細い金の線 ---------- */
+.read-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--gold); transform: scaleX(var(--read, 0)); transform-origin: 0 50%; pointer-events: none; }
+
+/* ---------- いま何章目か（PCの広い画面だけ。左端の余白に縦書きで） ---------- */
+.chapter-mark { display: none; }
+@media (min-width: 1400px) and (min-height: 640px) {
+  .motion .chapter-mark { position: fixed; left: 24px; bottom: 44px; z-index: 40; display: flex; align-items: center; gap: 14px; writing-mode: vertical-rl; font: 500 12px/1 var(--f-en); letter-spacing: .32em; text-transform: uppercase; color: #fff; mix-blend-mode: difference; opacity: 0; transform: translate3d(0, 10px, 0); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
+  .motion .chapter-mark.is-on { opacity: .78; transform: none; transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); }
+  .chapter-bar { width: 1px; height: 40px; background: currentColor; opacity: .6; }
+}
+
+/* ---------- ページを移るとき、ふわりと切り替わる（対応ブラウザのみ） ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root) { animation-duration: .35s; }
+  ::view-transition-new(root) { animation-duration: .55s; }
+}

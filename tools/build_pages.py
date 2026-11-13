@@ -157,7 +157,7 @@ for p in PAGES:
 </main>
 {fix_links(footer, on_page)}
 {fix_links(mobile, on_page)}
-<script src="/scripts/main.js?v=20261031-lux" defer></script>
+<script src="/scripts/main.js?v=20261113-finish" defer></script>
 </body>
 </html>
 """
@@ -205,7 +205,7 @@ thanks_html = f"""<!doctype html>
 </main>
 {fix_links(footer, set())}
 {fix_links(mobile, set())}
-<script src="/scripts/main.js?v=20261031-lux" defer></script>
+<script src="/scripts/main.js?v=20261113-finish" defer></script>
 </body>
 </html>
 """

@@ -178,6 +178,108 @@
     });
   }
 
+  /* ---------- 仕上げの動き（2026.11.13）：本体サイト ARPEGGIO と作法をそろえる ----------
+     ・章の見出し（STORY など）が下から静かにせり上がる
+     ・トップの写真は、スクロールすると奥へ、言葉は上へ抜けていく
+     ・大きな写真の帯は、スクロールよりゆっくり動く（奥行き）
+     ・縦書きの一文が、一文字ずつ灯る
+     ・表の上の罫線が、左からすっと引かれる
+     ・画面のいちばん上に、読み進めた分だけ伸びる細い線
+     「動きを減らす」設定の端末では、どれも動かない */
+  if (!reduce && 'IntersectionObserver' in window) {
+    doc.classList.add('fx');
+    var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
+
+    document.querySelectorAll('.sec-head__en').forEach(function (el) {
+      var inner = document.createElement('span');
+      inner.className = 'line-in';
+      while (el.firstChild) inner.appendChild(el.firstChild);
+      el.appendChild(inner);
+      el.classList.add('line');
+    });
+
+    var drawIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-drawn'); drawIO.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.lore, .spec, .facts, .news').forEach(function (el) {
+      el.classList.add('draw-line');
+      drawIO.observe(el);
+    });
+
+    var bar = document.createElement('span');
+    bar.className = 'read-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    body.appendChild(bar);
+
+    // 縦書きの一文：読み上げ用の文はそのまま残し、見た目だけ一文字ずつに分ける
+    var scrubs = Array.prototype.slice.call(document.querySelectorAll('.story__title')).map(function (el) {
+      var visual = document.createElement('span');
+      var label = document.createElement('span');
+      var count = 0;
+      visual.setAttribute('aria-hidden', 'true');
+      Array.prototype.slice.call(el.childNodes).forEach(function (node) {
+        if (node.nodeType !== 3) { visual.appendChild(node.cloneNode(true)); return; }
+        Array.from(node.textContent).forEach(function (ch) {
+          var span = document.createElement('span');
+          span.className = 'scrub-char';
+          span.style.setProperty('--i', count);
+          span.textContent = ch;
+          visual.appendChild(span);
+          count += 1;
+        });
+      });
+      label.className = 'sr-only';
+      label.textContent = el.textContent;
+      el.textContent = '';
+      el.appendChild(label);
+      el.appendChild(visual);
+      return { el: el, count: count };
+    });
+
+    var heroEl = document.querySelector('.hero');
+    var bands = Array.prototype.slice.call(document.querySelectorAll('.interlude, .banner'));
+    var floats = Array.prototype.slice.call(document.querySelectorAll('.chapter__img'));
+    var deskQuery = window.matchMedia('(min-width: 769px)');
+    var fxTick = false;
+    var fxUpdate = function () {
+      fxTick = false;
+      var vh = window.innerHeight;
+      var max = doc.scrollHeight - vh;
+      bar.style.setProperty('--read', max > 0 ? clamp01(window.scrollY / max).toFixed(4) : 0);
+      if (heroEl) {
+        var hr = heroEl.getBoundingClientRect();
+        if (hr.bottom > 0) heroEl.style.setProperty('--hero-p', clamp01(-hr.top / hr.height).toFixed(3));
+      }
+      bands.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        // 帯が画面を通り抜けるあいだに、中の写真が -1 〜 1 の範囲で動く
+        var t = ((r.top + r.height / 2) - vh / 2) / ((vh + r.height) / 2);
+        el.style.setProperty('--par', Math.max(-1, Math.min(1, t)).toFixed(3));
+      });
+      floats.forEach(function (el, i) {
+        if (!deskQuery.matches) { if (el.style.translate) el.style.translate = ''; return; }
+        var r = el.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        var t = ((r.top + r.height / 2) - vh / 2) / vh;
+        el.style.translate = '0 ' + (Math.max(-1, Math.min(1, t)) * (i % 2 ? 30 : 20)).toFixed(1) + 'px';
+      });
+      scrubs.forEach(function (sc) {
+        var r = sc.el.getBoundingClientRect();
+        if (r.top > vh || r.bottom < 0) return;
+        var p = clamp01((vh * 0.92 - r.top) / (vh * 0.5));
+        sc.el.style.setProperty('--lit', (p * (sc.count + 3) - 1).toFixed(2));
+      });
+    };
+    var fxQueue = function () { if (!fxTick) { fxTick = true; requestAnimationFrame(fxUpdate); } };
+    fxUpdate();
+    window.addEventListener('scroll', fxQueue, { passive: true });
+    window.addEventListener('resize', fxQueue);
+    window.addEventListener('load', fxQueue, { once: true });
+  }
+
   /* ---------- フッターの年 ---------- */
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();

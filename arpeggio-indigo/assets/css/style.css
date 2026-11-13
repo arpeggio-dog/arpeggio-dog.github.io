@@ -626,3 +626,47 @@ html[lang="en"] .banner__body h3 { letter-spacing: .04em; }
 html[lang="en"] .lore li { grid-template-columns: 6.5em 1fr; font-size: 17px; }
 html[lang="en"] .news__tag { font-family: var(--f-num); letter-spacing: .08em; }
 html[lang="en"] .page-head__lead { line-height: 1.8; }
+
+/* =========================================================
+   仕上げの動き（2026.11.13）
+   本体サイト ARPEGGIO と動きの作法をそろえる（色は藍のまま）。
+   JS が <html class="fx"> を付けたときだけ動く。「動きを減らす」設定では付かない。
+   ========================================================= */
+:root { --ease-lux: cubic-bezier(.16, 1, .3, 1); }
+
+/* 章の見出し：下から静かにせり上がる */
+.fx .sec-head__en.line { display: block; overflow: hidden; overflow: clip; padding-block: .12em; }
+.fx .sec-head__en .line-in { display: block; transform: translate3d(0, 115%, 0); transition: transform 1.5s var(--ease-lux) .15s; }
+.fx .sec-head.is-in .line-in { transform: none; }
+
+/* トップ：スクロールすると写真は奥へ、言葉は上へ抜けていく */
+.fx .hero__slides { translate: 0 calc(var(--hero-p, 0) * 14%); scale: calc(1 + var(--hero-p, 0) * .06); }
+.fx.js .is-ready .hero__body { translate: 0 calc(var(--hero-p, 0) * -90px); opacity: calc(1 - var(--hero-p, 0) * 1.7); }
+
+/* 大きな写真の帯：中の写真がスクロールよりゆっくり動く */
+.fx .interlude img, .fx .banner img { scale: 1.16; translate: 0 calc(var(--par, 0) * -6%); will-change: translate; }
+.fx .chapter__img { will-change: opacity, translate; }
+
+/* 縦書きの一文：一文字ずつ灯る */
+.fx .scrub-char { opacity: clamp(.18, calc(var(--lit, 0) - var(--i)), 1); transition: opacity .25s linear; }
+
+/* 罫線：左からすっと引かれる */
+.fx .draw-line { position: relative; border-top-color: transparent; }
+.fx .draw-line::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--c-line); transform: scaleX(0); transform-origin: 0 50%; transition: transform 1.8s var(--ease-lux) .2s; pointer-events: none; }
+.fx .draw-line.is-drawn::after { transform: none; }
+
+/* 読み進めた分だけ伸びる、細い線（暗い写真の上では白に） */
+.read-progress { position: fixed; left: 0; right: 0; top: 0; z-index: 90; height: 2px; background: var(--c-accent); transform: scaleX(var(--read, 0)); transform-origin: 0 50%; pointer-events: none; transition: background-color .5s var(--ease-soft); }
+.is-on-dark .read-progress { background: rgba(255, 255, 255, .85); }
+
+/* 商品写真・外部リンクの矢印：カーソルを乗せたときの動きをゆったりと */
+.fx .card__img img { transition: transform 1.2s var(--ease-lux); }
+.ext::after { display: inline-block; transition: transform .5s var(--ease-lux); }
+@media (hover: hover) { .ext:hover::after { transform: translate3d(3px, -3px, 0); } }
+
+/* ページを移るとき、ふわりと切り替わる（対応ブラウザのみ） */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root) { animation-duration: .35s; }
+  ::view-transition-new(root) { animation-duration: .55s; }
+}
